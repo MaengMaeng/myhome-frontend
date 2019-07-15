@@ -8,8 +8,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@vue/babel-preset-app": "^3.9.2",
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
+    "vue-router": "^3.0.7",
     "vuetify": "^1.5.5"
   },
   "devDependencies": {
