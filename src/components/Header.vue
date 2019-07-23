@@ -12,13 +12,19 @@
       <v-btn flat to="/gallery">갤러리</v-btn>
       <v-btn flat to="/calendar">일정</v-btn>
       <v-btn flat to="/boardlist">게시판</v-btn>
+      <LoginModal/>
     </v-toolbar-items>
   </v-toolbar>
 </template>
 
 <script>
+import LoginModal from "@/components/LoginModal"
+
 export default {
   name: 'Header',
+  components:{
+    LoginModal
+  },
   data () {
     return {
 
