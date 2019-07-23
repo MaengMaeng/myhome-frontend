@@ -6,6 +6,7 @@ import Products from './views/Products.vue'
 import Gallery from './views/Gallery.vue'
 import CalendarPage from './views/CalendarPage.vue'
 import BoardListPage from './views/BoardListPage.vue'
+import BoardWritePage from './views/BoardWritePage.vue'
 
 Vue.use(Router)
 
@@ -42,6 +43,11 @@ export default new Router({
       path: '/boardlist',
       name: 'BoardListPage',
       component: BoardListPage
+    },
+    {
+      path: '/boardwrite',
+      name: 'BoardWritePage',
+      component: BoardWritePage
     }
   ]
 })
