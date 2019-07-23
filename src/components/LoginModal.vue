@@ -1,0 +1,112 @@
+<template>
+<v-dialog v-model="dialog" persistent max-width="600px" @keydown.esc="closeDialog">
+  <template v-slot:activator="{ on }">
+    <!-- <span v-if="$store.state.userInfo" @click="signout()" v-on="">Logout</span> -->
+    <!-- <span v-else v-on="on">Login</span> -->
+    <v-btn v-if="!$store.state.isLogin" flat v-on="on">Login</v-btn>
+    <v-btn v-else @click="logout" flat v-on="">Logout</v-btn>
+  </template>
+  <v-card>
+    <v-card-title>
+      <span class="headline">LOGIN</span>
+    </v-card-title>
+    <v-card-text>
+      <v-container grid-list-md>
+        <v-layout wrap @keydown.enter="normalLogin">
+          <v-flex xs12>
+            <v-text-field label="Email*" required v-model="id"></v-text-field>
+          </v-flex>
+          <v-flex xs12>
+            <v-text-field label="Password*" type="password" required v-model="pw"></v-text-field>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color="blue darken-1" flat @click="normalLogin">LOGIN</v-btn>
+      <v-btn color="blue darken-1" flat @click="closeDialog">CANCEL</v-btn>
+    </v-card-actions>
+    <Loading :isLoading="isLoading" :isFullPage="false"/>
+    <Loading :isLoading="isLoadingForSignout" :isFullPage="true"/>
+  </v-card>
+</v-dialog>
+</template>
+
+<script>
+import Loading from '@/components/Loading';
+
+export default {
+  name: "LoginModal",
+  data() {
+    return {
+      id: "",
+      pw: "",
+      dialog: false,
+      isLoading: false,
+      isLoadingForSignout:false,
+    }
+  },
+  components:{
+    Loading
+  },
+  async created() {
+
+  },
+  methods: {
+    async normalLogin() {
+      this.isLoading = true;
+      var config = {
+        u_mail:this.id,
+        u_pw:this.pw,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'dataType':"jsonp"
+        }
+      };
+
+      this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/login", config)
+        .then((response) => {
+          this.isLoading = false;
+          this.$store.state.user = response.data;
+          this.$store.state.isLogin = true;
+
+          this.id = "";
+          this.pw = "";
+
+          this.dialog = false;
+
+          alert("로그인 되었습니다.")
+        })
+        .catch((error) => {
+          console.log(error)
+          alert("ID 혹은 비밀번호를 다시 확인해주세요.")
+          this.id = "";
+          this.pw = "";
+        })
+    },
+
+    logout(){
+      this.$store.state.user = {
+        u_mail:'',
+        u_name:'',
+        u_tel:'',
+        u_birth:''
+      }
+      this.$store.state.isLogin = false;
+
+      alert("로그아웃 되었습니다.")
+    },
+
+    closeDialog() {
+      this.dialog = false;
+      this.id = "";
+      this.pw = "";
+    }
+  }
+}
+</script>
+
+<style>
+
+</style>

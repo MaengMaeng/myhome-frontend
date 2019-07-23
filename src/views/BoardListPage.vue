@@ -1,7 +1,8 @@
 <template>
   <v-layout wrap>
     <v-flex xs12 ma-5>
-      <BoardList></BoardList>
+      <BoardList :boardList="boardList"></BoardList>
+      <v-btn to="boardwrite">글쓰기</v-btn>
     </v-flex>
   </v-layout>
 </template>
@@ -13,13 +14,32 @@ import BoardList from '@/components/BoardList'
     name: 'Products',
     data(){
       return{
-        lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`
+        boardList:[]
       }
     },
     components: {
       BoardList
     },
-    methods: {}
+    created(){
+      var config = {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'dataType':"jsonp"
+        }
+      };
+
+      this.axios.get("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/getBoardListByPage?page_num=0", config)
+      // this.axios.get("http://168.188.125.194:8080/getBoardListByPage?page_num=0", config)
+        .then((response) => {
+          this.boardList = response.data;
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    methods: {
+
+    }
   }
 
 </script>
