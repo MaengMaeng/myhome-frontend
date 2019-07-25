@@ -5,6 +5,7 @@ import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
+
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
@@ -13,16 +14,7 @@ import { store } from './store'
 Vue.config.productionTip = false
 
 Vue.use(VueAxios, axios)
-
-Vue.use(Vuetify, {
-	iconfont: 'fa',
-	theme: {
-		primary: '#3f51b5',
-		secondary: '#b0bec5',
-		accent: '#8c9eff',
-		error: '#b71c1c'
-	}
-})
+Vue.use(Vuetify)
 
 new Vue({
   router,
