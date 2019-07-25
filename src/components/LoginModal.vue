@@ -96,6 +96,8 @@ export default {
       this.$store.state.isLogin = false;
 
       alert("로그아웃 되었습니다.")
+
+      this.$router.push("/");
     },
 
     closeDialog() {
