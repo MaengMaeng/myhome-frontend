@@ -21,7 +21,7 @@
           <legend>Files</legend>
           <div style="margin:0px 16px">
             <!--<v-text-field xs12 label="파일을 선택해 주세요."></v-text-field>-->
-            <ImageLoader />
+            <ImageLoader ref="il"/>
           </div>
         </fieldset>
       </v-flex>
@@ -68,7 +68,7 @@ export default {
     ImageLoader
   },
   methods: {
-    insertBoard(){
+    async insertBoard(){
       this.isLoading = true;
 
       var config = {
@@ -76,15 +76,16 @@ export default {
         b_content:this.content,
         b_title:this.title,
         b_writer:this.$store.state.user.u_mail,
+        attachments:[await this.$refs.il.getImageUrl()],
         headers: {
           'Access-Control-Allow-Origin': '*',
           'dataType':"jsonp"
         }
       };
-
+      console.log(config.attachments);
       // this.axios.post("http://168.188.125.194:8080/insertBoard", config)
       // this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/insertBoard", config)
-      this.axios.post("localhost:8080/insertBoard", config)
+      this.axios.post("http://168.188.125.194:8080/insertBoard", config)
         .then((response) => {
           this.isLoading = false;
 
