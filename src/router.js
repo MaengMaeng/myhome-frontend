@@ -7,6 +7,7 @@ import Gallery from './views/Gallery.vue'
 import CalendarPage from './views/CalendarPage.vue'
 import BoardListPage from './views/BoardListPage.vue'
 import BoardWritePage from './views/BoardWritePage.vue'
+import BoardDetailPage from './views/BoardDetailPage.vue'
 
 Vue.use(Router)
 
@@ -43,6 +44,12 @@ export default new Router({
       path: '/boardlist',
       name: 'BoardListPage',
       component: BoardListPage
+    },
+    {
+      path: '/boarddetail/:id',
+      name: 'BoardDetailPage',
+      component: BoardDetailPage,
+      props:true
     },
     {
       path: '/boardwrite',
