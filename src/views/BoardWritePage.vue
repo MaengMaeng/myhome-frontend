@@ -20,7 +20,8 @@
         <fieldset style="margin-left:4px; height:100%">
           <legend>Files</legend>
           <div style="margin:0px 16px">
-            <v-text-field xs12 label="파일을 선택해 주세요."></v-text-field>
+            <!--<v-text-field xs12 label="파일을 선택해 주세요."></v-text-field>-->
+            <ImageLoader />
           </div>
         </fieldset>
       </v-flex>
@@ -50,6 +51,7 @@
 
 <script>
 import Loading from '@/components/Loading';
+import ImageLoader from '@/components/ImageLoader';
 
 export default {
   name: 'BoardWritePage',
@@ -62,7 +64,8 @@ export default {
     }
   },
   components: {
-    Loading
+    Loading,
+    ImageLoader
   },
   methods: {
     checkValidation(){
@@ -87,7 +90,8 @@ export default {
           }
         };
 
-        // this.axios.post("http://168.188.125.194:8080/insertBoard", config)
+      // this.axios.post("http://168.188.125.194:8080/insertBoard", config)
+      this.axios.post("localhost:8080/insertBoard", config)
         this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/insertBoard", config)
         .then((response) => {
           this.isLoading = false;
