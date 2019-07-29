@@ -76,6 +76,7 @@ export default {
 
           this.dialog = false;
 
+          console.log(this.$store.state.user)
           alert("로그인 되었습니다.")
         })
         .catch((error) => {

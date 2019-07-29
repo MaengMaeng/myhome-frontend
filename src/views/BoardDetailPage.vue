@@ -20,14 +20,12 @@
             <v-layout wrap>
               <v-flex xs1 text-xs-left>
                 <h2>Comments</h2>
-                <v-divider></v-divider>
               </v-flex>
 
               <v-flex xs12 v-for="comment in board.comments">
                 <CommentCard :comment="comment"/>
               </v-flex>
             </v-layout>
-            <v-divider></v-divider>
             <v-layout wrap justify-center>
               <v-flex xs9>
                 <v-textarea style="border:1px solid black;" solo rows="4" no-resize flat light label="내용을 입력해주세요." v-model='comment'></v-textarea>
@@ -48,24 +46,39 @@
 <script>
 import Loading from '@/components/Loading';
 import CommentCard from '@/components/CommentCard';
-
+import Time from '@/services/Time'
 export default {
   name: 'BoardDetailPage',
   data() {
     return {
       board: null,
-      comment: "",
+      comment: null,
       isLoading: false,
     }
   },
   components: {
     Loading,
-    CommentCard
+    CommentCard,
+    Time
   },
   created() {
     this.isLoading = true;
 
     this.getBoard();
+  },
+  computed:{
+    form(){
+      return {
+        c_bnumber: this.$route.params.id * 1,
+        c_content: this.comment,
+        c_writer: this.$store.state.user.u_mail,
+        c_wdate: Time.getFullDate(),
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'dataType': "jsonp"
+        }
+      }
+    }
   },
   methods: {
     goBoardList() {
@@ -86,7 +99,7 @@ export default {
       this.axios.get("http://168.188.125.194:8080/getBoardDetailByBoardNum?b_number=" + this.$route.params.id, config)
         // this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/insertBoard", config)
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           this.board = response.data;
           this.isLoading = false;
         })
@@ -96,22 +109,14 @@ export default {
     },
 
     writeComment(){
-      var config = {
-        c_number:3,
-        c_bnumber: this.$route.params.id * 1,
-        c_content: this.comment,
-        c_writer: this.$store.state.user.u_mail,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'dataType': "jsonp"
-        }
-      };
-
-      console.log(config)
-      this.axios.post("http://168.188.125.194:8080/insertComment", config)
+      console.log(this.form)
+      this.axios.post("http://168.188.125.194:8080/insertComment", this.form)
         // this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/insertBoard", config)
         .then((response) => {
+          // console.log(response.data)
+
           this.getBoard();
+
         })
         .catch((error) => {
           console.log(error)
