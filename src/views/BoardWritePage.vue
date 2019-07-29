@@ -30,8 +30,8 @@
           <legend>Category</legend>
           <div style="margin:16px;">
             <v-radio-group v-model="category">
-              <v-radio label="공지" color="primary" value="true"></v-radio>
-              <v-radio label="일반" color="error" value="false"></v-radio>
+              <v-radio label="공지" color="primary" value="0"></v-radio>
+              <v-radio label="일반" color="error" value="1"></v-radio>
             </v-radio-group>
           </div>
         </fieldset>
@@ -57,7 +57,7 @@ export default {
     return {
       title: "",
       content: "",
-      category: "true",
+      category: "0",
       isLoading: false,
     }
   },
@@ -77,7 +77,7 @@ export default {
         this.isLoading = true;
 
         var config = {
-          b_category:(this.category == "true") ? 0 : 1,
+          b_category:this.category,
           b_content:this.content,
           b_title:this.title,
           b_writer:this.$store.state.user.u_mail,
