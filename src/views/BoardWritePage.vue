@@ -20,7 +20,12 @@
         <fieldset style="margin-left:4px; height:100%">
           <legend>Files</legend>
           <div style="margin:0px 16px">
+<<<<<<< HEAD
             <v-text-field xs12 label="파일을 선택해 주세요."></v-text-field>
+=======
+            <!--<v-text-field xs12 label="파일을 선택해 주세요."></v-text-field>-->
+            <ImageLoader ref="il"/>
+>>>>>>> 576061d8db15a3a693d877b1dcce97f227ae136d
           </div>
         </fieldset>
       </v-flex>
@@ -50,6 +55,10 @@
 
 <script>
 import Loading from '@/components/Loading';
+<<<<<<< HEAD
+=======
+import ImageLoader from '@/components/ImageLoader';
+>>>>>>> 576061d8db15a3a693d877b1dcce97f227ae136d
 
 export default {
   name: 'BoardWritePage',
@@ -62,6 +71,7 @@ export default {
     }
   },
   components: {
+<<<<<<< HEAD
     Loading
   },
   methods: {
@@ -89,6 +99,29 @@ export default {
 
         // this.axios.post("http://168.188.125.194:8080/insertBoard", config)
         this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/insertBoard", config)
+=======
+    Loading,
+    ImageLoader
+  },
+  methods: {
+    async insertBoard(){
+      this.isLoading = true;
+      var config = {
+        b_category:(this.category == "true") ? 0 : 1,
+        b_content:this.content,
+        b_title:this.title,
+        b_writer:this.$store.state.user.u_mail,
+        attachments:[await this.$refs.il.getImageUrl()],
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'dataType':"jsonp"
+        }
+      };
+      console.log(config.attachments);
+      // this.axios.post("http://168.188.125.194:8080/insertBoard", config)
+      // this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/insertBoard", config)
+      this.axios.post("http://168.188.125.194:8080/insertBoard", config)
+>>>>>>> 576061d8db15a3a693d877b1dcce97f227ae136d
         .then((response) => {
           this.isLoading = false;
 
@@ -100,12 +133,16 @@ export default {
         })
         .catch((error) => {
           console.log(error)
+<<<<<<< HEAD
           this.isLoading = false;
         })
       }
       else{
         alert("글을 확인해주세요.");
       }
+=======
+        })
+>>>>>>> 576061d8db15a3a693d877b1dcce97f227ae136d
     },
     goBoardList(){
       this.$router.push("boardlist")
