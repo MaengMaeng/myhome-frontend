@@ -19,16 +19,16 @@
       return {
         items: [
           {
-            src: require('../assets/home-img/1.jpg')
+            src: require('@/assets/home-img/1.jpg')
           },
           {
-            src: require('../assets/home-img/2.jpg')
+            src: require('@/assets/home-img/2.jpg')
           },
           {
-            src: require('../assets/home-img/3.jpg')
+            src: require('@/assets/home-img/3.jpg')
           },
           {
-            src: require('../assets/home-img/4.jpg')
+            src: require('@/assets/home-img/4.jpg')
           }
         ]
       }

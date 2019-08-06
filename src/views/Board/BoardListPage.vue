@@ -41,10 +41,14 @@ export default {
     };
 
     var page = this.page - 1;
-    this.axios.get("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/getBoardListByPage?page_num=" + page, config)
-      // this.axios.get("http://168.188.125.194:8080/getBoardListByPage?page_num=" + page, config)
+    // this.axios.get("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/getBoardListByPage?page_num=" + page, config)
+      this.axios.get("http://168.188.125.194:8080/getBoardListByPage?page_num=" + page, config)
       .then((response) => {
         this.boardList = response.data;
+        this.axios.get("http://168.188.125.194:8080/getBoardTotalPageNum")
+        .then(res => {
+          this.length = res.data;
+        })
       })
       .catch((error) => {
         console.log(error)
@@ -60,8 +64,8 @@ export default {
       };
 
       var page = this.page - 1;
-      this.axios.get("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/getBoardListByPage?page_num=" + page, config)
-        // this.axios.get("http://168.188.125.194:8080/getBoardListByPage?page_num=" + page, config)
+      // this.axios.get("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/getBoardListByPage?page_num=" + page, config)
+        this.axios.get("http://168.188.125.194:8080/getBoardListByPage?page_num=" + page, config)
         .then((response) => {
           this.boardList = response.data;
         })
