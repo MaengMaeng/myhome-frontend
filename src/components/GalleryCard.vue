@@ -1,8 +1,8 @@
-<template>
+<template class="gallerycard">
 <v-layout @click="imgur" py-4 h-100 mx-4 mt-4>
   <v-flex>
     <v-card>
-      <v-img :src="imgSrc" height="400px">
+      <v-img :src="imgSrc" :title="title" :writer="writer" height="400px">
       </v-img>
 
       <v-card-title>
@@ -49,3 +49,6 @@ export default {
   }
 }
 </script>
+
+
+

@@ -1,10 +1,13 @@
 <template>
-<v-container fluid grid-list-md>
+<v-container id="app" fluid grid-list-md>
   <v-layout row wrap>
-    <v-flex d-flex xs12 sm6 md4>
+    <v-flex d-flex xs12 sm6 md4  @mouseover="movemove()" @mouseleave="upHere = false">
       <v-card color="purple" dark>
-        <v-card-title primary class="title">Lorem</v-card-title>
-        <v-card-text>{{ temp }}</v-card-text>
+        <v-card-title primary class="title">모아라얍 !</v-card-title>
+        <v-card-text>
+          모바일 프로그래밍 수업에서 열심히 만든 종이쿠폰 대체 애플리케이션<br>
+          텀프 이후 사장됨.
+        </v-card-text>
       </v-card>
     </v-flex>
     <v-flex d-flex xs12 sm6 md3>
@@ -36,7 +39,26 @@
       </v-card>
     </v-flex>
   </v-layout>
+  <h3>Hover us.</h3>
+  <main>
+    <app-child>
+      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/cartoonvideo2.jpg" />
+    </app-child>
+  <app-child>
+    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/cartoonvideo13.jpg" />
+  </app-child>
+  <app-child>
+    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/cartoonvideo14.jpeg" />
+  </app-child>
+  <app-child>
+    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/cartoonvideo5.jpg" />
+  </app-child>
+  </main>
 </v-container>
+
+  
+
+
 <!-- <v-container fluid grid-list-md>
     <v-layout align-center justify-center wrap column>
       <v-flex xs12 ma-5 grey fill-height>
@@ -55,11 +77,14 @@ export default {
   name: 'Products',
   data() {
     return {
+      isShowing: false,
       lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`,
       temp: ""
     }
   },
-  components: {},
+  components: {
+    appChild: Child
+  },
   methods: {
     getTemp() {
       var config = {
@@ -76,12 +101,25 @@ export default {
         .catch((error) => {
           console.log(error)
         })
+    },
+    movemove(){
+
     }
   },
   created() {
     this.getTemp()
   }
 }
+const Child = {
+  template: '#childarea',
+  props: ['isShowing'],
+  methods: {
+    toggleShow() {
+      this.isShowing = !this.isShowing;
+    }
+  }
+};
+
 </script>
 
 <style media="screen">
@@ -137,5 +175,78 @@ img {
 
 #mycontainer {
   background: #456;
+}
+
+
+
+button {
+  font-family: 'Bitter';
+  background: #c62735;
+  color: white;
+  border: 0;
+  padding: 5px 15px;
+  margin: 0 10px;
+  border-radius: 4px;
+  outline: 0;
+  cursor: pointer;
+}
+
+.img-contain {
+  width: 250px;
+  height: 160px;
+  overflow: hidden;
+}
+
+img {
+  width: 100%;
+  transform-origin: 50% 50%;
+  cursor: pointer;
+  transform: scaleY(1) translateZ(0);
+  margin: 5px;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.img-contain:hover .overlay {
+  opacity: 1;
+  background: hsla(50, 0%, 0%, 0.6);
+  transition: 0.3s opacity ease-out;
+}
+
+.img-contain .overlay {
+  position: absolute;
+  z-index: 1000;
+  display: block;
+  width: 245px;
+  height: 155px;
+  margin: 5px;
+  opacity: 0;
+  overflow: hidden;
+  transition: 0.3s opacity ease-in;
+}
+
+.overlay-text {
+  margin-top: 40px;
+}
+
+h4 {
+  margin: 0 0 15px;
+}
+
+.flip-enter-active {
+  transition: all .2s cubic-bezier(0.55, 0.085, 0.68, 0.53); 
+}
+
+.flip-leave-active {
+  transition: all .25s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+}
+
+.flip-enter, .flip-leave-to {
+  transform: scaleY(0) translateZ(0);
+  opacity: 0;
 }
 </style>
