@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import Introduce from './views/Introduce.vue'
-import Products from './views/Products.vue'
+import Home from './views/Home/Home.vue'
+import Introduce from './views/Introduce/Introduce.vue'
+import Products from './views/Products/Products.vue'
 import Gallery from './views/Gallery.vue'
-import CalendarPage from './views/CalendarPage.vue'
-import BoardListPage from './views/BoardListPage.vue'
-import BoardWritePage from './views/BoardWritePage.vue'
-import BoardDetailPage from './views/BoardDetailPage.vue'
+import CalendarPage from './views/Calendar/CalendarPage.vue'
+import BoardListPage from './views/Board/BoardListPage.vue'
+import BoardWritePage from './views/Board/BoardWritePage.vue'
+import BoardDetailPage from './views/Board/BoardDetailPage.vue'
 
 Vue.use(Router)
 

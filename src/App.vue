@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import Home from './views/Home'
-import Header from './components/Header'
-import Footer from './components/Footer'
+import Home from '@/views/Home/Home'
+import Header from '@/components/common/Header'
+import Footer from '@/components/common/Footer'
 
 export default {
   name: 'App',

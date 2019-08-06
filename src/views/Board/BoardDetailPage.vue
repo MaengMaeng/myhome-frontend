@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import Loading from '@/components/Loading';
+import Loading from '@/components/common/Loading';
 import CommentCard from '@/components/CommentCard';
 import Time from '@/services/Time'
 export default {
