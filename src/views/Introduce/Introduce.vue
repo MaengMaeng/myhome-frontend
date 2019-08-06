@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import IntroduceCard from '../components/IntroduceCard'
+import IntroduceCard from '@/components/IntroduceCard'
 
 export default {
   name: 'Introduce',

@@ -21,7 +21,7 @@
           <legend>Files</legend>
           <div style="margin:0px 16px">
             <!--<v-text-field xs12 label="파일을 선택해 주세요."></v-text-field>-->
-            <ImageLoader ref="il"/>
+            <ImageLoader ref="il" />
           </div>
         </fieldset>
       </v-flex>
@@ -50,8 +50,8 @@
 </template>
 
 <script>
-import Loading from '@/components/Loading';
-import ImageLoader from '@/components/ImageLoader';
+import Loading from '@/components/common/Loading';
+import ImageLoader from '@/components/common/ImageLoader';
 
 export default {
   name: 'BoardWritePage',
@@ -68,17 +68,17 @@ export default {
     ImageLoader
   },
   methods: {
-    async insertBoard(){
+    async insertBoard() {
       this.isLoading = true;
       var config = {
-        b_category:(this.category == "true") ? 0 : 1,
-        b_content:this.content,
-        b_title:this.title,
-        b_writer:this.$store.state.user.u_mail,
-        attachments:[await this.$refs.il.getImageUrl()],
+        b_category: (this.category == "true") ? 0 : 1,
+        b_content: this.content,
+        b_title: this.title,
+        b_writer: this.$store.state.user.u_mail,
+        attachments: [await this.$refs.il.getImageUrl()],
         headers: {
           'Access-Control-Allow-Origin': '*',
-          'dataType':"jsonp"
+          'dataType': "jsonp"
         }
       };
       console.log(config.attachments);
@@ -96,11 +96,13 @@ export default {
         })
         .catch((error) => {
           console.log(error)
+          alert("글을 확인해 주세요.")
+          this.isLoading = false;
         })
-    },
-    goBoardList(){
-      this.$router.push("boardlist")
     }
+  },
+  goBoardList() {
+    this.$router.push("boardlist")
   }
 }
 </script>

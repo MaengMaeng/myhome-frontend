@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import ImageSlider from '../components/ImageSlider'
+import ImageSlider from '@/components/common/ImageSlider'
 
 export default {
 	name: 'Home',
