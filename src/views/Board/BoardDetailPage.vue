@@ -1,7 +1,8 @@
 <template>
 <v-layout wrap align-center justify-center row fill-height>
   <v-flex xs12 text-xs-left>
-    <v-img src="https://source.unsplash.com/random" aspect-ratio="1.7">
+    <!-- 널일수도 있다 어떻게?-->
+    <v-img :src="attachment.a_file" aspect-ratio="1.7">
       <v-layout wrap pa-5 fill-height>
         <v-flex v-if="board != null" pa-5 ma-5 white xs12>
           <h1><span style="color:red;" v-if="board.board.b_category == 0">[공지] </span>{{board.board.b_title}}</h1>
@@ -22,7 +23,7 @@
                 <h2>Comments</h2>
               </v-flex>
 
-              <v-flex xs12 v-for="comment in board.comments">
+              <v-flex xs12 :v-for="comment in board.comments">
                 <CommentCard :comment="comment"/>
               </v-flex>
             </v-layout>
@@ -52,6 +53,7 @@ export default {
   data() {
     return {
       board: null,
+      attachment:null,
       comment: null,
       isLoading: false,
     }
@@ -63,7 +65,7 @@ export default {
   },
   created() {
     this.isLoading = true;
-
+    this.getAttachment();
     this.getBoard();
   },
   computed:{
@@ -101,6 +103,25 @@ export default {
         .then((response) => {
           // console.log(response.data);
           this.board = response.data;
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    getAttachment(){
+      var config = {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'dataType': "jsonp"
+        }
+      };
+
+      this.axios.get("http://168.188.125.194:8080/getAttachmentListByBoardNum?b_number=" + this.$route.params.id, config)
+        // this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/getAttachmentListByBoardNumb_number=", config)
+        .then((response) => {
+          // console.log(response.data);
+          this.attachment = response.data[0];//일단 하나
           this.isLoading = false;
         })
         .catch((error) => {
