@@ -18,6 +18,10 @@
 
       }
     },
+    created(){
+
+      console.log(this.$props.comment)
+    },
     props:{
       comment:{}
     },
