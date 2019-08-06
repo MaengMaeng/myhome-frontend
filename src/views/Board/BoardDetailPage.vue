@@ -2,8 +2,6 @@
 <v-layout wrap align-center justify-center row fill-height>
   <v-flex xs12 text-xs-left>
     <!-- 널일수도 있다 어떻게?-->
-    <v-img v-if="attachment != null" :src="attachment.a_file" aspect-ratio="1">
-      <!-- <v-layout wrap pa-5 fill-height>
         <v-flex v-if="board != null" pa-5 ma-5 white xs12>
           <h1><span style="color:red;" v-if="board.board.b_category == 0">[공지] </span>{{board.board.b_title}}</h1>
           <h3 style="text-align:right;color:grey;">작성자 : {{board.board.b_writer}}</h3>
@@ -12,6 +10,7 @@
           <v-divider dark></v-divider>
           <div class="content-field">
             <h3>{{board.board.b_content}}</h3>
+            <v-img style="width:500px" v-if="attachment != null" :src="attachment.a_file"></v-img>
           </div>
           <div style="text-align:center;">
             <div style="text-align:right;">
@@ -37,8 +36,7 @@
             <v-btn class="v-btn theme--dark" @click="goBoardList">목록</v-btn>
           </div>
         </v-flex>
-      </v-layout> -->
-    </v-img>
+      </v-layout> 
     <v-img v-else src="https://source.unsplash.com/random/300x300" aspect-ratio="1">
       <v-layout wrap pa-5 fill-height>
         <v-flex v-if="board != null" pa-5 ma-5 white xs12>
@@ -75,7 +73,7 @@
           </div>
         </v-flex>
       </v-layout>
-    </v-img>
+    
   </v-flex>
   <Loading :isLoading="isLoading" />
 </v-layout>
@@ -162,6 +160,7 @@ export default {
           // console.log(response.data);
           this.attachment = response.data[0];//일단 하나
           this.isLoading = false;
+          console.log(this.attachment);
         })
         .catch((error) => {
           console.log(error)

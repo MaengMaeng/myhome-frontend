@@ -1,10 +1,10 @@
 <template>
 <v-layout wrap>
-  <v-flex  xs12 md6 lg3>
-  <GalleryCard :imgSrc="require('../assets/home-img/plus.jpg')" title="추가하기" writer="추가버튼" xs12 md6 lg3/>
+  <v-flex @click="insertBoard()" xs12 md6 lg3>
+  <GalleryCard class="gallerycard" :imgSrc="require('../assets/home-img/plus.jpg')" title="추가하기" writer="추가버튼" xs12 md6 lg3/>
   </v-flex>
-  <v-flex v-for="item in galleryCardList" xs12 md6 lg3>
-    <GalleryCard :imgSrc="item.a_file"></GalleryCard>
+  <v-flex @click="boardDetail(item.b_number)" v-for="item in galleryCardList" xs12 md6 lg3>
+    <GalleryCard class="gallerycard" :imgSrc="item.a_file" :title="item.b_title" :writer="item.b_writer"></GalleryCard>
     <v-divider></v-divider>
   </v-flex>
 </v-layout>
@@ -39,6 +39,7 @@ export default {
       this.axios.get("http://168.188.125.194:8080/getAttachmentListByPage?page_num=" + page, config)
       .then((response) => {
         this.galleryCardList = response.data;
+        console.log(response.data)
       })
       .catch((error) => {
         console.log(error)
@@ -64,5 +65,18 @@ export default {
         })
     }
   },
+  methods:{
+    insertBoard(){
+      this.$router.push({name:"BoardWritePage"})
+    },
+    boardDetail(b_number){
+        this.$router.push({name:"BoardDetailPage", params:{id:b_number}})
+    }
+  }
 }
 </script>
+<style>
+.gallerycard:hover{
+  cursor: pointer;
+}
+</style>
