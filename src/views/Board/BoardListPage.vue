@@ -6,13 +6,25 @@
   <v-flex xs12 text-xs-center>
     <v-pagination v-model="page" :length="length" :total-visible="totalVisible"></v-pagination>
   </v-flex>
-  <v-layout pa-5 justify-center>
-    <v-flex xs3 text-xs-center>
-        <v-text-field hide-details prepend-icon="search"></v-text-field>
-    </v-flex>
-    <v-btn>검색</v-btn>
-    <v-btn to="boardwrite">글쓰기</v-btn>
-  </v-layout>
+  <v-flex xs12>
+    <div class="searchbar-total">
+      <div class="searchbar-first">
+        <v-select
+          v-model="category"
+          :items="items"
+          :menu-props="{ top: true, offsetY: true }"
+          label="Category"
+        ></v-select>
+      </div>
+      <div class="searchbar-second">
+        <v-text-field xs12 label="검색어를 입력해 주세요." v-model='search'></v-text-field>
+      </div>
+      <div class="searchbar-third">
+        <v-btn class="v-btn theme--dark" @click="">검색</v-btn>
+        <v-btn class="v-btn theme--dark" to="boardwrite">POST 작성</v-btn>
+      </div>
+    </div>
+  </v-flex>
 </v-layout>
 </template>
 
@@ -26,7 +38,10 @@ export default {
       boardList: [],
       page: 1,
       length: 200,
-      totalVisible: 7
+      totalVisible: 7,
+      items: ['제목', '내용', '제목 + 내용', 'ID'],
+      search:"",
+      category:"",
     }
   },
   components: {
@@ -81,6 +96,31 @@ export default {
 </script>
 
 <style media="screen">
+.searchbar-total{
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  /* background-color: rgba(9,9,9,0.1); */
+}
+.searchbar-first{
+  float: left;
+  display: inline-block;
+  margin: 5px;
+  max-width: 150px;
+}
+.searchbar-second{
+  float: left;
+  display: inline-block;
+  margin: 5px;
+  width: 300px;
+}
+.searchbar-third{
+  float: left;  display: inline-block;
+  margin: 5px 0px;
+  vertical-align: center;
+
+}
 .nav-side {
   display: inline-block;
   color: white;

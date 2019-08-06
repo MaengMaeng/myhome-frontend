@@ -3,7 +3,7 @@
   <template v-slot:activator="{ on }">
     <!-- <span v-if="$store.state.userInfo" @click="signout()" v-on="">Logout</span> -->
     <!-- <span v-else v-on="on">Login</span> -->
-    <v-btn v-if="!$store.state.isLogin" flat v-on="on">Login</v-btn>
+    <v-btn v-if="!$session.has('user')" flat v-on="on">Login</v-btn>
     <v-btn v-else @click="logout" flat v-on="">Logout</v-btn>
   </template>
   <v-card>
@@ -67,17 +67,22 @@ export default {
 
       this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/login", config)
         .then((response) => {
-          this.isLoading = false;
-          this.$store.state.user = response.data;
-          this.$store.state.isLogin = true;
+          console.log(response.data)
+          if(response.data == ""){
+            alert("ID 혹은 비밀번호를 다시 확인해주세요.")
+            this.id = "";
+            this.pw = "";
+            this.isLoading = false;
+          }
+          else{
+            this.isLoading = false;
+            this.$session.set("user", response.data);
+            alert("로그인 되었습니다.")
+            this.id = "";
+            this.pw = "";
+            this.dialog = false;
+          }
 
-          this.id = "";
-          this.pw = "";
-
-          this.dialog = false;
-
-          console.log(this.$store.state.user)
-          alert("로그인 되었습니다.")
         })
         .catch((error) => {
           console.log(error)
@@ -88,13 +93,7 @@ export default {
     },
 
     logout(){
-      this.$store.state.user = {
-        u_mail:'',
-        u_name:'',
-        u_tel:'',
-        u_birth:''
-      }
-      this.$store.state.isLogin = false;
+      this.$session.remove("user");
 
       alert("로그아웃 되었습니다.")
 

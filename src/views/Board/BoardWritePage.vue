@@ -92,17 +92,16 @@ export default {
 
           console.log(response.data)
           this.goBoardList();
-
         })
         .catch((error) => {
           console.log(error)
           alert("글을 확인해 주세요.")
           this.isLoading = false;
         })
+    },
+    goBoardList() {
+      this.$router.push("/boardlist")
     }
-  },
-  goBoardList() {
-    this.$router.push("boardlist")
   }
 }
 </script>
