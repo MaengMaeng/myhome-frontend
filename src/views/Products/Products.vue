@@ -70,6 +70,7 @@
       </v-flex>
     </v-layout>
   </v-container> -->
+  
 </template>
 
 <script>
@@ -121,6 +122,7 @@ const Child = {
 };
 
 </script>
+
 
 <style media="screen">
 .nav-side {
