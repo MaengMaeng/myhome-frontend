@@ -1,9 +1,9 @@
 <template>
   <v-data-table
+    :headers="headers"
     :items="boardList"
     class="elevation-1"
     hide-actions
-    hide-headers
   >
     <template v-slot:items="props" >
       <tr @click="goDetail(props.item.b_number)">
@@ -21,7 +21,13 @@
   export default {
     data () {
       return {
-
+        headers:[
+          {text:'글 번호', align:'right',sortable:false,value:0},
+          {text:'글 제목', align:'center',sortable:false,value:0},
+          {text:'작성자', align:'center',sortable:false,value:0},
+          {text:'조회수', align:'center',sortable:false,value:0},
+          {text:'좋아요', align:'center',sortable:false,value:0},
+        ]
       }
     },
     props:{
