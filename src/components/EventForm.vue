@@ -69,7 +69,7 @@ export default {
                 }
             }
 
-            this.$http.post('http://192.168.31.63:3000/plan/personal', config)
+            this.$http.post(this.$store.state.testIp + '/plan/personal', config)
                 .then((response) => {
                     this.$store.state.plan = response.data;
                 })

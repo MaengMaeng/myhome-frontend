@@ -37,7 +37,7 @@ export default {
     // var data = {
     //     num : this.$session.get('userInfo').user_num
     // }
-    this.$http.get('http://168.188.125.194:8080/getAllPlans')
+    this.$http.get(this.$store.state.server_ip + '/getAllPlans')
       .then((response) => {
         var items = response.body;
         // console.log(items)

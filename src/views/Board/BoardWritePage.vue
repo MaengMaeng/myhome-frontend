@@ -63,6 +63,12 @@ export default {
       isLoading: false,
     }
   },
+  created(){
+    if(!this.$session.has("user")){
+      alert("로그인 해주세요.");
+      this.$router.go(-1);
+    }
+  },
   components: {
     Loading,
     ImageLoader
@@ -74,7 +80,7 @@ export default {
         b_category: (this.category == "true") ? 0 : 1,
         b_content: this.content,
         b_title: this.title,
-        b_writer: this.$store.state.user.u_mail,
+        b_writer: this.$session.get("user").u_mail,
         attachments: [await this.$refs.il.getImageUrl()],
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -82,9 +88,9 @@ export default {
         }
       };
       console.log(config.attachments);
-      // this.axios.post("http://168.188.125.194:8080/insertBoard", config)
+      // this.axios.post(this.$store.state.server_ip + "/insertBoard", config)
       // this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/insertBoard", config)
-      this.axios.post("http://168.188.125.194:8080/insertBoard", config)
+      this.axios.post(this.$store.state.server_ip + "/insertBoard", config)
         .then((response) => {
           this.isLoading = false;
 
@@ -100,7 +106,7 @@ export default {
         })
     },
     goBoardList() {
-      this.$router.push("/boardlist")
+      this.$router.go(-1);
     }
   }
 }

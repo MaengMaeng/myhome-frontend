@@ -4,7 +4,6 @@
     <v-layout wrap>
       <v-flex xs12>
         <GalleryCardList></GalleryCardList>
-
       </v-flex>
     </v-layout>
   </div>
