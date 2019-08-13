@@ -1,8 +1,7 @@
 <template>
 <v-layout wrap align-center justify-center row fill-height>
-  <v-flex xs12 text-xs-left>
-    <!-- 널일수도 있다 어떻게?-->
-    <v-flex v-if="board != null" pa-5 ma-5 white xs12>
+  <!-- <v-flex xs12 text-xs-left> -->
+    <v-flex v-if="board" pa-5 ma-5 white xs12>
       <h1><span style="color:red;" v-if="board.board.b_category == 0">[공지] </span>{{board.board.b_title}}</h1>
       <h3 style="text-align:right;color:grey;">작성자 : {{board.board.b_writer}}</h3>
       <v-divider></v-divider>
@@ -37,7 +36,7 @@
       </div>
     </v-flex>
   <Loading :isLoading="isLoading" />
-</v-layout> 
+</v-layout>
 </template>
 
 <script>
@@ -94,7 +93,7 @@ export default {
         }
       };
 
-      this.axios.get("http://168.188.125.194:8080/getBoardDetailByBoardNum?b_number=" + this.$route.params.id, config)
+      this.axios.get(this.$store.state.server_ip + "/getBoardDetailByBoardNum?b_number=" + this.$route.params.id, config)
         // this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/insertBoard", config)
         .then((response) => {
           // console.log(response.data);
@@ -115,7 +114,7 @@ export default {
         }
       };
 
-      this.axios.get("http://168.188.125.194:8080/getAttachmentListByBoardNum?b_number=" + this.$route.params.id, config)
+      this.axios.get(this.$store.state.server_ip + "/getAttachmentListByBoardNum?b_number=" + this.$route.params.id, config)
         // this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/getAttachmentListByBoardNumb_number=", config)
         .then((response) => {
           // console.log(response.data);
@@ -132,7 +131,7 @@ export default {
       if(this.$session.has("user")){
         var form = this.form;
         if(form.c_content != "" && form.c_content != null){
-          this.axios.post("http://168.188.125.194:8080/insertComment", form)
+          this.axios.post(this.$store.state.server_ip + "/insertComment", form)
           // this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/insertBoard", config)
           .then((response) => {
             if(response.data != ""){

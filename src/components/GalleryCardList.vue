@@ -35,8 +35,7 @@ export default {
     };
 
     var page = this.page - 1;
-    // this.axios.get("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/getAttachmentListByPage?page_num=" + page, config)
-      this.axios.get("http://168.188.125.194:8080/getAttachmentListByPage?page_num=" + page, config)
+      this.axios.get(this.$store.state.server_ip + "/getAttachmentListByPage?page_num=" + page, config)
       .then((response) => {
         this.galleryCardList = response.data;
         console.log(response.data)
@@ -55,8 +54,7 @@ export default {
       };
 
       var page = this.page - 1;
-      // this.axios.get("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/getAttachmentListByPage?page_num=" + page, config)
-        this.axios.get("http://168.188.125.194:8080/getAttachmentListByPage?page_num=" + page, config)
+        this.axios.get(this.$store.state.server_ip + "/getAttachmentListByPage?page_num=" + page, config)
         .then((response) => {
           this.galleryCardList = response.data;
         })

@@ -3,8 +3,8 @@
   <template v-slot:activator="{ on }">
     <!-- <span v-if="$store.state.userInfo" @click="signout()" v-on="">Logout</span> -->
     <!-- <span v-else v-on="on">Login</span> -->
-    <v-btn v-if="!$session.has('user')" flat v-on="on">Login</v-btn>
-    <v-btn v-else @click="logout" flat v-on="">Logout</v-btn>
+    <v-btn v-if="!isLogin" flat class="outlined" v-on="on">Login</v-btn>
+    <v-btn v-else @click="logout" flat class="outlined" v-on="">Logout</v-btn>
   </template>
   <v-card>
     <v-card-title>
@@ -42,6 +42,7 @@ export default {
     return {
       id: "",
       pw: "",
+      isLogin:false,
       dialog: false,
       isLoading: false,
       isLoadingForSignout:false,
@@ -50,8 +51,13 @@ export default {
   components:{
     Loading
   },
-  async created() {
-
+  created() {
+    if(this.$session.has('user')){
+      this.isLogin = true;
+    }
+    else{
+      this.isLogin = false;
+    }
   },
   methods: {
     async normalLogin() {
@@ -78,6 +84,8 @@ export default {
             this.isLoading = false;
             this.$session.set("user", response.data);
             alert("로그인 되었습니다.")
+            this.isLogin = true;
+            this.$emit("loginstate")
             this.id = "";
             this.pw = "";
             this.dialog = false;
@@ -96,6 +104,9 @@ export default {
       this.$session.remove("user");
 
       alert("로그아웃 되었습니다.")
+      this.isLogin = false;
+
+      this.$emit("loginstate")
 
       this.$router.push("/");
     },
@@ -110,5 +121,13 @@ export default {
 </script>
 
 <style>
-
+.v-btn.outlined {
+    border: 1px solid black;
+    border-radius:5px;
+    height: 30px;
+    width: 30px;
+    font-size:20px;
+    font-family: 'Nanum Pen Script';
+    /* color:rgb(57, 117, 72); */
+  }
 </style>
