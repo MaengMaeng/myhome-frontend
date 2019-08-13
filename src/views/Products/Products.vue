@@ -39,21 +39,16 @@
       </v-card>
     </v-flex>
   </v-layout>
-  <h3>Hover us.</h3>
-  <main>
-    <app-child>
-      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/cartoonvideo2.jpg" />
-    </app-child>
-  <app-child>
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/cartoonvideo13.jpg" />
-  </app-child>
-  <app-child>
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/cartoonvideo14.jpeg" />
-  </app-child>
-  <app-child>
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/cartoonvideo5.jpg" />
-  </app-child>
-  </main>
+  <div>
+    <h1>똥차 Gallery</h1>
+    <v-layout wrap>
+      <v-flex xs12>
+        <ProductCardList></ProductCardList>
+      </v-flex>
+    </v-layout>
+    
+    
+  </div>
 </v-container>
 
   
@@ -74,6 +69,7 @@
 </template>
 
 <script>
+import ProductCardList from '../../components/ProductCardList'
 export default {
   name: 'Products',
   data() {
@@ -84,7 +80,8 @@ export default {
     }
   },
   components: {
-    appChild: Child
+    appChild: Child,
+    ProductCardList
   },
   methods: {
     getTemp() {
