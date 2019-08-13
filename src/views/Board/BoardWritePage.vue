@@ -69,6 +69,11 @@ export default {
       this.$router.go(-1);
     }
   },
+  watch:{
+      category(v){
+        console.log(v);
+      }
+  },
   components: {
     Loading,
     ImageLoader
@@ -77,7 +82,7 @@ export default {
     async insertBoard() {
       this.isLoading = true;
       var config = {
-        b_category: (this.category == "true") ? 0 : 1,
+        b_category: this.category,
         b_content: this.content,
         b_title: this.title,
         b_writer: this.$session.get("user").u_mail,
