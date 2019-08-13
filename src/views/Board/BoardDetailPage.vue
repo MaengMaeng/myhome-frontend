@@ -21,7 +21,7 @@
             <h2>Comments</h2>
           </v-flex>
 
-          <v-flex xs12 :v-for="comment in board.comments">
+          <v-flex xs12 v-for="comment in board.comments">
             <CommentCard :comment="comment"/>
           </v-flex>
         </v-layout>
