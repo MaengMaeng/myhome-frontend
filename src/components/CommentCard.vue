@@ -1,5 +1,5 @@
 <template>
-  <v-layout wrap ma-2 align-left>
+  <v-layout wrap ma-2 align-left v-if="comment">
     <v-flex xs4 style="background:#555;">
       <h4 style="color:#DDD">{{comment.c_wdate}}</h4>
       <h3 style="color:#FFF">{{comment.c_writer}}</h3>
@@ -19,11 +19,10 @@
       }
     },
     created(){
-
       console.log(this.$props.comment)
     },
     props:{
-      comment:{}
+      comment:{default:null}
     },
     methods:{
 

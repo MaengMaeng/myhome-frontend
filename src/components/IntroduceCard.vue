@@ -5,7 +5,7 @@
       <v-img :src="imgSrc" height="400px">
         <v-container fill-height row>
           <v-layout justify-end align-end>
-            <strong class="display-1 font-weight-regular mr-4">{{name}}</strong>
+            <strong class="display-1 font-weight-regular mr-4 introduce-name">{{name}}</strong>
           </v-layout>
         </v-container>
       </v-img>
@@ -62,3 +62,11 @@ export default {
 }
 </script>
 
+<style media="screen">
+  .introduce-name{
+    padding:5px;
+    background:black;
+    border-radius:5px;
+    color:white;
+  }
+</style>

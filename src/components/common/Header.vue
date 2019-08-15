@@ -54,135 +54,50 @@
       </v-list-tile-content>
     </v-list-tile>
 
-    <v-list-group>
-      <template v-slot:activator>
-        <v-list-tile>
-          <v-list-tile-content style="height:auto;">
-            <h1 style="margin-left: 15px;">
-              <v-icon>accessibility_new</v-icon>
-              <span class="spantag"> Personal</span>
-            </h1>
-          </v-list-tile-content>
-        </v-list-tile>
-      </template>
-      <v-divider />
+    <v-list-tile @click="" to="/introduce" style="margin-top:10px; background:rgba(0,0,0,0);">
+      <v-list-tile-content style="height:auto;background:rgba(0,0,0,0);">
+        <h1 style="margin-left: 15px;background:rgba(0,0,0,0);">
+          <v-icon>accessibility_new</v-icon>
+          <span class="spantag"> Introduce</span>
+        </h1>
+      </v-list-tile-content>
+    </v-list-tile>
 
-      <v-list-tile to="/myproject" style="background:white;">
-        <v-list-tile-content style="height:auto;">
-          <h1 style="margin-left: 30px;">
-            <span class="spantag">Project</span>
-          </h1>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-divider />
+    <v-list-tile @click="" to="/products" style="margin-top:10px; background:rgba(0,0,0,0);">
+      <v-list-tile-content style="height:auto;background:rgba(0,0,0,0);">
+        <h1 style="margin-left: 15px;background:rgba(0,0,0,0);">
+          <v-icon>apps</v-icon>
+          <span class="spantag"> Products</span>
+        </h1>
+      </v-list-tile-content>
+    </v-list-tile>
 
-      <v-list-tile to="/post" style="background:white;">
-        <v-list-tile-content style="height:auto;">
-          <h1 style="margin-left: 30px;">
-            <span class="spantag">Post</span>
-          </h1>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-divider/>
+    <v-list-tile @click="" to="/gallery" style="margin-top:10px; background:rgba(0,0,0,0);">
+      <v-list-tile-content style="height:auto;background:rgba(0,0,0,0);">
+        <h1 style="margin-left: 15px;background:rgba(0,0,0,0);">
+          <v-icon>insert_photo</v-icon>
+          <span class="spantag"> Gallery</span>
+        </h1>
+      </v-list-tile-content>
+    </v-list-tile>
 
-      <v-list-tile to="/todolist" style="background:white;">
-        <v-list-tile-content style="height:auto;">
-          <h1 style="margin-left: 30px;">
-            <span class="spantag">To-Do List</span>
-          </h1>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-divider/>
+    <v-list-tile @click="" to="/calendar" style="margin-top:10px; background:rgba(0,0,0,0);">
+      <v-list-tile-content style="height:auto;background:rgba(0,0,0,0);">
+        <h1 style="margin-left: 15px;background:rgba(0,0,0,0);">
+          <v-icon>calendar_today</v-icon>
+          <span class="spantag"> Plan</span>
+        </h1>
+      </v-list-tile-content>
+    </v-list-tile>
 
-      <v-list-tile to="/calendar">
-        <v-list-tile-content style="height:auto;">
-          <h1 style="margin-left: 30px;">
-            <span class="spantag">Calendar</span>
-          </h1>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-divider/>
-    </v-list-group>
-<!-- dklafjlkdjfkljakldfjklasdjfkljadsklfjdfkljkldfjakljdklfjaklfj -->
-    <v-list-group>
-      <template v-slot:activator>
-        <v-list-tile>
-          <v-list-tile-content style="height:auto;">
-            <h1 style="margin-left: 15px;">
-              <v-icon>people</v-icon>
-              <span class="spantag"> Team</span>
-            </h1>
-          </v-list-tile-content>
-        </v-list-tile>
-      </template>
-      <v-divider />
-
-      <v-list-tile to="/teamChoose" style="background:white;">
-        <v-list-tile-content style="height:auto;">
-          <h1 style="margin-left: 30px;">
-            <span class="spantag">Team 선택</span>&nbsp;
-          </h1>
-        </v-list-tile-content>
-      </v-list-tile>
-<!--
-      <v-list-tile v-else @click="go()" style="background:white;">
-        <v-list-tile-content style="height:auto;">
-          <h1 style="margin-left: 30px;">
-            <span class="spantag">Team: {{ teamName }}</span>
-          </h1>
-        </v-list-tile-content>
-      </v-list-tile>
--->
-      <v-divider />
-            <v-list-tile to="/teamCalendar" style="background:white;">
-        <v-list-tile-content style="height:auto;">
-          <h1 style="margin-left: 30px;">
-            <span class="spantag">Calendar</span>
-          </h1>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-divider/>
-
-    </v-list-group>
-
-        <v-list-tile to="/another" >
-          <v-list-tile-content style="height:auto;">
-            <h1 style="margin-left: 15px;">
-              <v-icon>person_pin</v-icon>
-              <span class="spantag"> AnotherUser</span>
-            </h1>
-          </v-list-tile-content>
-        </v-list-tile>
-
-    <v-list-group>
-      <template v-slot:activator>
-        <v-list-tile>
-          <v-list-tile-content style="height:auto;">
-            <h1 style="margin-left: 15px;">
-              <v-icon>tag_faces</v-icon>
-              <span class="spantag"> Users</span>
-            </h1>
-          </v-list-tile-content>
-        </v-list-tile>
-      </template>
-      <v-divider />
-      <v-list-tile to="/user/update" style="background:white;">
-        <v-list-tile-content style="height:auto;">
-          <h1 style="margin-left: 30px;">
-            <span class="spantag">회원 정보 수정</span>
-          </h1>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-divider />
-      <v-list-tile to="/user/delete" style="background:white;">
-        <v-list-tile-content style="height:auto;">
-          <h1 style="margin-left: 30px;">
-            <span class="spantag">회원 탈퇴</span>
-          </h1>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-divider/>
-    </v-list-group>
+    <v-list-tile @click="" to="/boardlist" style="margin-top:10px; background:rgba(0,0,0,0);">
+      <v-list-tile-content style="height:auto;background:rgba(0,0,0,0);">
+        <h1 style="margin-left: 15px;background:rgba(0,0,0,0);">
+          <v-icon>dashboard</v-icon>
+          <span class="spantag"> Board</span>
+        </h1>
+      </v-list-tile-content>
+    </v-list-tile>
   </v-list>
   </v-navigation-drawer>
 </div>
@@ -243,4 +158,6 @@ export default {
 .spantag{
   color:white;
 }
+
+
 </style>
