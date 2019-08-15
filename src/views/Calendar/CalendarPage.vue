@@ -1,20 +1,14 @@
 <template>
-  <div>
-    <h1>똥차 Calendar</h1>
-
-    <div id="app">
-      <div class="main2" >
-        <div class="calendar-holder">
-          <calendar :events="events" />
-        </div>
-
-        <div class="form-holder">
-          <h3>Schedule an event</h3>
-          <event-form />
-        </div>
-      </div>
-    </div>
-  </div>
+  <v-container fluid>
+    <v-layout wrap row>
+      <v-flex xs12 md9>
+        <calendar :events="events"/>
+      </v-flex>
+      <v-flex xs12 md3>
+        <event-form/>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -34,20 +28,17 @@ export default {
     }
   },
   mounted(){
-    // var data = {
-    //     num : this.$session.get('userInfo').user_num
-    // }
     this.$http.get(this.$store.state.server_ip + '/getAllPlans')
       .then((response) => {
-        var items = response.body;
-        // console.log(items)
+        var items = response.data;
+        console.log(items)
         for(var i = 0; i < items.length; i++){
           this.events.push({title: items[i].p_title, start: items[i].p_sdate,
                   end: items[i].p_edate, cssClass: "#000", description: items[i].p_content});
         }
       })
       .catch((error) =>{
-        // console.log(error)
+        console.log(error)
       })
   },
   computed:{
