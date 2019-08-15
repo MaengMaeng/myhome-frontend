@@ -120,7 +120,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .v-btn.outlined {
     border: 1px solid black;
     border-radius:5px;
