@@ -1,49 +1,27 @@
 <template>
 <v-container id="app" fluid grid-list-md>
   <v-layout row wrap>
-    <v-flex d-flex xs12 sm6 md4  @mouseover="movemove()" @mouseleave="upHere = false">
+    <v-flex class="title-container" @click="provideAction()" d-flex xs4>
+      <v-card color="blue" dark>
+        <v-card-title primary class="title">What We Provide</v-card-title>
+      </v-card>
+    </v-flex>
+    <v-flex class="title-container" @click="wantAction()" d-flex xs4>
       <v-card color="purple" dark>
-        <v-card-title primary class="title">모아라얍 !</v-card-title>
-        <v-card-text>
-          모바일 프로그래밍 수업에서 열심히 만든 종이쿠폰 대체 애플리케이션<br>
-          텀프 이후 사장됨.
-        </v-card-text>
+        <v-card-title primary class="title">What We Want</v-card-title>
       </v-card>
-    </v-flex>
-    <v-flex d-flex xs12 sm6 md3>
-      <v-layout row wrap>
-        <v-flex d-flex>
-          <v-card color="indigo" dark>
-            <v-card-text>{{ lorem.slice(0, 70) }}</v-card-text>
-          </v-card>
-        </v-flex>
-        <v-flex d-flex>
-          <v-layout row wrap>
-            <v-flex v-for="n in 2" :key="n" d-flex xs12>
-              <v-card color="red lighten-2" dark>
-                <v-card-text>{{ lorem.slice(0, 40) }}</v-card-text>
-              </v-card>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-      </v-layout>
-    </v-flex>
-    <v-flex d-flex xs12 sm6 md2 child-flex>
-      <v-card color="green lighten-2" dark>
-        <v-card-text>{{ lorem.slice(0, 90) }}</v-card-text>
-      </v-card>
-    </v-flex>
-    <v-flex d-flex xs12 sm6 md3>
-      <v-card color="blue lighten-2" dark>
-        <v-card-text>{{ lorem.slice(0, 100) }}</v-card-text>
+    </v-flex> 
+    <v-flex class="title-container" @click="areAction()" d-flex xs4>
+      <v-card color="pink" dark>
+        <v-card-title primary class="title">What We Are</v-card-title>
       </v-card>
     </v-flex>
   </v-layout>
   <div>
-    <h1>똥차 Gallery</h1>
     <v-layout wrap>
       <v-flex xs12>
         <ProductCardList></ProductCardList>
+        
       </v-flex>
     </v-layout>
     
@@ -51,21 +29,6 @@
   </div>
 </v-container>
 
-  
-
-
-<!-- <v-container fluid grid-list-md>
-    <v-layout align-center justify-center wrap column>
-      <v-flex xs12 ma-5 grey fill-height>
-        <v-card blue fill-height>
-          <v-card-title>a</v-card-title>
-          <v-divider></v-divider>
-          <v-card-text>b</v-card-text>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container> -->
-  
 </template>
 
 <script>
@@ -100,7 +63,7 @@ export default {
           console.log(error)
         })
     },
-    movemove(){
+    provideAction(){
 
     }
   },
@@ -247,5 +210,8 @@ h4 {
 .flip-enter, .flip-leave-to {
   transform: scaleY(0) translateZ(0);
   opacity: 0;
+}
+.title-container:hover{
+  cursor:pointer;
 }
 </style>

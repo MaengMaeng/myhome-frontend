@@ -1,6 +1,6 @@
 <template>
   <v-carousel
-    height="800"
+    height="800px"
     delimiter-icon="stop"
     prev-icon="mdi-arrow-left"
     next-icon="mdi-arrow-right"
