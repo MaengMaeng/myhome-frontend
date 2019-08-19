@@ -36,6 +36,8 @@ export default {
   data() {
     return {
       boardList: [],
+      noticeList:[],
+
       page: 1,
       length: 200,
       totalVisible: 7,
@@ -57,16 +59,18 @@ export default {
 
     var page = this.page - 1;
     // this.axios.get("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/getBoardListByPage?page_num=" + page, config)
-      this.axios.get(this.$store.state.server_ip + "/getBoardListByPage?page_num=" + page, config)
+      this.axios.get(this.$store.state.server_ip + "/getNoticeList", config)
       .then((response) => {
-        this.boardList = response.data;
-        this.axios.get(this.$store.state.server_ip + "/getBoardTotalPageNum")
-        .then(res => {
-          this.length = res.data;
+        this.noticeList = response.data;
+
+        this.axios.get(this.$store.state.server_ip + "/getBoardListByPage?page_num=" + page, config)
+        .then((response) => {
+          this.boardList = this.noticeList.concat(response.data);
+          this.axios.get(this.$store.state.server_ip + "/getBoardTotalPageNum")
+          .then(res => {
+            this.length = res.data;
+          })
         })
-      })
-      .catch((error) => {
-        console.log(error)
       })
   },
   watch:{
@@ -82,7 +86,7 @@ export default {
       // this.axios.get("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/getBoardListByPage?page_num=" + page, config)
         this.axios.get(this.$store.state.server_ip + "/getBoardListByPage?page_num=" + page, config)
         .then((response) => {
-          this.boardList = response.data;
+          this.boardList = this.noticeList.concat(response.data);
         })
         .catch((error) => {
           console.log(error)
