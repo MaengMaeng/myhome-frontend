@@ -43,6 +43,7 @@
 import Loading from '@/components/common/Loading';
 import CommentCard from '@/components/CommentCard';
 import Time from '@/services/Time'
+
 export default {
   name: 'BoardDetailPage',
   data() {
@@ -115,10 +116,8 @@ export default {
       };
 
       this.axios.get(this.$store.state.server_ip + "/getAttachmentListByBoardNum?b_number=" + this.$route.params.id, config)
-        // this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/getAttachmentListByBoardNumb_number=", config)
         .then((response) => {
-          // console.log(response.data);
-          this.attachment = response.data[0];//일단 하나
+          this.attachment = response.data[0]; //일단 하나
           this.isLoading = false;
           console.log(this.attachment);
         })
@@ -132,7 +131,6 @@ export default {
         var form = this.form;
         if(form.c_content != "" && form.c_content != null){
           this.axios.post(this.$store.state.server_ip + "/insertComment", form)
-          // this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/insertBoard", config)
           .then((response) => {
             if(response.data != ""){
               this.getBoard();

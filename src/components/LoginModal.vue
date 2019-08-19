@@ -71,7 +71,7 @@ export default {
         }
       };
 
-      this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/login", config)
+      this.axios.post(this.$store.state.server_ip + "/login", config)
         .then((response) => {
           console.log(response.data)
           if(response.data == ""){
@@ -97,6 +97,7 @@ export default {
           alert("ID 혹은 비밀번호를 다시 확인해주세요.")
           this.id = "";
           this.pw = "";
+          this.isLoading = false;
         })
     },
 

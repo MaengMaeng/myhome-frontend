@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import Time from '@/services/Time';
 import Loading from '@/components/common/Loading';
 import ImageLoader from '@/components/common/ImageLoader';
 
@@ -76,7 +77,8 @@ export default {
   },
   components: {
     Loading,
-    ImageLoader
+    ImageLoader,
+    Time
   },
   methods: {
     async insertBoard() {
@@ -86,6 +88,7 @@ export default {
         b_content: this.content,
         b_title: this.title,
         b_writer: this.$session.get("user").u_mail,
+        b_wdate:Time.getFullDate(),
         attachments: [await this.$refs.il.getImageUrl()],
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -93,8 +96,7 @@ export default {
         }
       };
       console.log(config.attachments);
-      // this.axios.post(this.$store.state.server_ip + "/insertBoard", config)
-      // this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/insertBoard", config)
+
       this.axios.post(this.$store.state.server_ip + "/insertBoard", config)
         .then((response) => {
           this.isLoading = false;

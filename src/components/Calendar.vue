@@ -101,7 +101,7 @@ export default {
       this.description = event.description;
       this.dialog = true
 
-      this.$http.post(this.$store.state.testIp + '/plan/getCalId', data)
+      this.$http.post(this.$store.state.server_ip + '/getCalId', data)
         .then((response) => {
           this.$store.state.cal_id = response.body[0].cal_id;
         })
@@ -126,7 +126,7 @@ export default {
         cssClass: this.cssClass
       }
 
-      this.$http.post(this.$store.state.testIp + '/plan/modifyPersonal', data)
+      this.$http.post(this.$store.state.server_ip + '/modifyPersonal', data)
         .then((response) => {
           this.$store.state.plan = true;
           this.dialog = false
@@ -139,7 +139,7 @@ export default {
       var data = {
         id : this.$store.state.cal_id
       }
-      this.$http.post(this.$store.state.testIp + '/plan/delete', data)
+      this.$http.post(this.$store.state.server_ip + '/delete', data)
         .then((response) => {
           this.$store.state.plan = true;
           this.dialog = false;
