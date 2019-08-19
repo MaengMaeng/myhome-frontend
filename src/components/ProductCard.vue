@@ -1,15 +1,15 @@
 <template class="productcard">
 <v-layout py-4 h-100 mx-4 mt-4>
   <v-flex>
-    <v-card class="container">
-      <v-img class="max-small" :src="imgSrc" :title="title" :content="content" :url="url" @click="myDoAction()" height="250px">
+    <v-card @click="myDoAction()"  class="container">
+      <v-img class="max-small" :src="imgSrc" :title="title" :content="content" :url="url" height="250px">
       </v-img>
-      <v-card-title>
+      <v-card-title class="blockStyle">
         <div>
           <div class="headline">
             {{title}}
           </div>
-          <div class="grey--text">
+          <div class="grey--text contentview">
             {{content}}
           </div>
         </div>
@@ -64,6 +64,20 @@ export default {
 }
 .headline{
   margin-bottom:12px;
+}
+.blockStyle{
+  display: block !important;
+}
+.contentview{
+  text-align: left;
+  overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* 라인수 */
+    -webkit-box-orient: vertical;
+    word-wrap:break-word; 
+    line-height: 1.2em;
+    height: 4.5em;
 }
 </style>
 
