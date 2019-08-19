@@ -57,7 +57,7 @@ export default new Router({
             component: BoardWritePage
         },
         {
-            path: '/product1',
+            path: '/shooting',
             name: 'ShootingGame',
             component: ShootingGame
         }

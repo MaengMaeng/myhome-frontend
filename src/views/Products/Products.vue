@@ -1,27 +1,28 @@
 <template>
 <v-container id="app" fluid grid-list-md>
   <v-layout row wrap>
-    <v-flex class="title-container" @click="provideAction()" d-flex xs4>
+    <v-flex class="title-container" @click="provideAction(0)" d-flex xs4>
       <v-card color="blue" dark>
         <v-card-title primary class="title">What We Provide</v-card-title>
       </v-card>
     </v-flex>
-    <v-flex class="title-container" @click="wantAction()" d-flex xs4>
+    <v-flex class="title-container" @click="provideAction(1)" d-flex xs4>
       <v-card color="purple" dark>
         <v-card-title primary class="title">What We Want</v-card-title>
       </v-card>
     </v-flex> 
-    <v-flex class="title-container" @click="areAction()" d-flex xs4>
+    <v-flex class="title-container" @click="provideAction(2)" d-flex xs4>
       <v-card color="pink" dark>
-        <v-card-title primary class="title">What We Are</v-card-title>
+        <v-card-title primary class="title">What We Are Going</v-card-title>
       </v-card>
     </v-flex>
   </v-layout>
   <div>
     <v-layout wrap>
       <v-flex xs12>
-        <ProductCardList></ProductCardList>
-        
+        <ProductCardList v-if="fragmentState==0"></ProductCardList>
+        <ProductWantCardList v-if="fragmentState==1"></ProductWantCardList>
+        <ProductGoingCardList v-if="fragmentState==2"></ProductGoingCardList>
       </v-flex>
     </v-layout>
     
@@ -33,18 +34,24 @@
 
 <script>
 import ProductCardList from '../../components/ProductCardList'
+import ProductWantCardList from '../../components/ProductWantCardList'
+import ProductGoingCardList from '../../components/ProductGoingCardList'
+
 export default {
   name: 'Products',
   data() {
     return {
       isShowing: false,
+      fragmentState: 0,
       lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`,
       temp: ""
     }
   },
   components: {
     appChild: Child,
-    ProductCardList
+    ProductCardList,
+    ProductWantCardList,
+    ProductGoingCardList
   },
   methods: {
     getTemp() {
@@ -63,8 +70,8 @@ export default {
           console.log(error)
         })
     },
-    provideAction(){
-
+    provideAction(state){
+      this.fragmentState = state
     }
   },
   created() {
