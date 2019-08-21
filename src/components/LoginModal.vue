@@ -123,12 +123,14 @@ export default {
 
 <style scoped>
 .v-btn.outlined {
-    border: 1px solid black;
-    border-radius:5px;
-    height: 30px;
-    width: 30px;
-    font-size:20px;
-    font-family: 'Nanum Pen Script';
+  border: 1px solid #3db39e;
+  border-radius: 5px;
+  /* font-size: 25px; */
+  color: #3db39e;
+  /* font-family: 'Nanum Pen Script', sans-serif; */
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
     /* color:rgb(57, 117, 72); */
   }
 </style>
