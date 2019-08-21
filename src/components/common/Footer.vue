@@ -23,19 +23,19 @@ export default {
 
 <style>
 .footer{
-  background: #000;
+  background: #f0f0f0;
   height: 64px;
   line-height: 64px;
   text-align: center;
 }
 
 .footer > span{
-  font-size: 24px;
+  font-size: 16px;
   font-weight: bold;
-  color: #fff;
+  color: #aaa;
 }
 
 .footer > span:nth-child(2){
-  color: #5e7eff;
+  color: #3db39e;
 }
 </style>
