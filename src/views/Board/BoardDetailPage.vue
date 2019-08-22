@@ -2,14 +2,17 @@
 <v-layout wrap align-center justify-center row fill-height>
   <!-- <v-flex xs12 text-xs-left> -->
     <v-flex v-if="board" pa-5 ma-5 white xs12>
-      <h1><span style="color:red;" v-if="board.board.b_category == 0">[공지] </span>{{board.board.b_title}}</h1>
-      <h3 style="text-align:right;color:grey;">작성자 : {{board.board.b_writer}}</h3>
-      <v-divider></v-divider>
-      <h3 style="text-align:right;color:grey;">{{board.board.b_wdate}}</h3>
+      <h1><span class="number" v-if="board.board.b_category == 0">공지</span>&nbsp;{{board.board.b_title}}</h1>
+      <div style="text-align:right;color:grey;">
+        <span>작성자 : {{board.board.b_writer}}</span>
+        &nbsp;
+        &nbsp;
+        <span>{{board.board.b_wdate}}</span>
+      </div>
+      <div style="width:100%; border-bottom: 1px dashed grey;"></div>
       <v-divider dark></v-divider>
       <div class="content-field">
-        <h3>{{board.board.b_content}}</h3>
-        <v-img style="width:500px" v-if="attachment != null" :src="attachment.a_file"></v-img>
+        <Editor :content="board.board.b_content"/>
       </div>
       <div style="text-align:center;">
         <div style="text-align:right;">
@@ -25,11 +28,15 @@
             <CommentCard :comment="comment"/>
           </v-flex>
         </v-layout>
-        <v-layout wrap justify-center>
-          <v-flex xs9>
-            <v-textarea style="border:1px solid black;" solo rows="4" no-resize flat light label="내용을 입력해주세요." v-model='comment'></v-textarea>
+        <v-layout wrap row ma-2 align-left class="comment-write">
+          <v-flex xs9 class="comment-content-text">
+            <v-textarea counter solo auto-grow clearable flat label="내용을 입력해주세요." v-model='comment'></v-textarea>
           </v-flex>
-          <v-btn @click="writeComment">댓글 달기</v-btn>
+            <v-layout id="btn-write-comment" align-center style="margin-left:4px;">
+              <v-btn @click="writeComment" color="white" flat style="background:#aaa; width:100%; height:100%; margin:0px; border-radius:10px !important;">
+                <span style="font-weight:bold; font-size:20px;">댓글쓰기</span>
+              </v-btn>
+            </v-layout>
         </v-layout>
 
         <v-btn class="v-btn theme--dark" @click="goBoardList">목록</v-btn>
@@ -43,6 +50,7 @@
 import Loading from '@/components/common/Loading';
 import CommentCard from '@/components/CommentCard';
 import Time from '@/services/Time'
+import Editor from '@/components/common/EditorForRead'
 
 export default {
   name: 'BoardDetailPage',
@@ -57,7 +65,8 @@ export default {
   components: {
     Loading,
     CommentCard,
-    Time
+    Time,
+    Editor
   },
   created() {
     this.isLoading = true;
@@ -80,7 +89,7 @@ export default {
   },
   methods: {
     goBoardList() {
-      this.$router.go(-1);
+      this.$router.push('/boardlist');
     },
 
     chechValid(){
@@ -153,7 +162,35 @@ export default {
 </script>
 
 <style media="screen">
+.comment{
+  margin: 10px;
+  padding: 5px;
+  border-radius: 15px;
+  background: rgba(0,0,0,0.1);
+}
+
+.comment-write{
+  margin: 10px;
+  padding: 5px;
+  border-radius: 15px;
+  background: rgba(0,0,0,0.5);
+}
+
 .content-field {
   min-height: 500px;
 }
+
+.number{
+  color:white;
+  font-weight:900;
+  border-radius:10px;
+  border:rgb(82, 245, 166) 1px solid;
+  background:rgb(82, 245, 166);
+  padding:5px;
+}
+
+div.v-input__slot{
+  background: rgba(0,0,0,0) !important;
+}
+
 </style>

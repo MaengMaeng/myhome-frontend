@@ -11,7 +11,7 @@
       <legend>CONTENT</legend>
       <div style="margin:16px; min-height:500px">
         <v-flex xs12>
-          <v-textarea solo rows="24" auto-grow flat light label="내용을 입력해주세요." v-model='content'></v-textarea>
+          <Editor ref="editor"/>
         </v-flex>
       </div>
     </fieldset>
@@ -20,7 +20,6 @@
         <fieldset style="margin-left:4px; height:100%">
           <legend>Files</legend>
           <div style="margin:0px 16px">
-            <!--<v-text-field xs12 label="파일을 선택해 주세요."></v-text-field>-->
             <ImageLoader ref="il" />
           </div>
         </fieldset>
@@ -31,8 +30,8 @@
           <legend>Category</legend>
           <div style="margin:16px;">
             <v-radio-group v-model="category">
-              <v-radio label="공지" color="primary" value="0"></v-radio>
-              <v-radio label="일반" color="error" value="1"></v-radio>
+              <v-radio label="일반" color="primary" value="1"></v-radio>
+              <v-radio label="공지" color="error" value="0"></v-radio>
             </v-radio-group>
           </div>
         </fieldset>
@@ -53,14 +52,20 @@
 import Time from '@/services/Time';
 import Loading from '@/components/common/Loading';
 import ImageLoader from '@/components/common/ImageLoader';
+import Editor from '@/components/common/EditorForWrite'
 
 export default {
   name: 'BoardWritePage',
+  components: {
+    Loading,
+    ImageLoader,
+    Time,
+    Editor
+  },
   data() {
     return {
       title: "",
-      content: "",
-      category: "0",
+      category: "1",
       isLoading: false,
     }
   },
@@ -75,17 +80,16 @@ export default {
         console.log(v);
       }
   },
-  components: {
-    Loading,
-    ImageLoader,
-    Time
-  },
   methods: {
     async insertBoard() {
+      if(this.title == ""){
+        alert("제목을 입력해 주세요.");
+        return;
+      }
       this.isLoading = true;
       var config = {
         b_category: this.category,
-        b_content: this.content,
+        b_content: this.$refs.editor.getContent(),
         b_title: this.title,
         b_writer: this.$session.get("user").u_mail,
         b_wdate:Time.getFullDate(),
