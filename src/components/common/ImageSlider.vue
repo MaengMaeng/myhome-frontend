@@ -4,6 +4,7 @@
     delimiter-icon="stop"
     prev-icon="mdi-arrow-left"
     next-icon="mdi-arrow-right"
+    flat
   >
     <v-carousel-item
       v-for="(item,i) in items"

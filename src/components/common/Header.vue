@@ -27,16 +27,25 @@
   </v-toolbar>
   <v-navigation-drawer v-model="drawer" right fixed temporary hide-overlay style="background-color: rgba(61, 179, 158, 0.8);">
     <v-list style="background-color: rgba(0, 0, 0, 0);">
-
-      <v-list-tile style="margin:10px; padding:10px; border-radius:5px; background:white;" v-if="isLogin">
-        <v-list-tile-avatar>
-          <v-img src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></v-img>
-        </v-list-tile-avatar>
-        <v-list-tile-content>
-          <v-list-tile-title class="title" style="font-family: 'Nanum Pen Script' !important; font-size:25px !important;color:black">{{user.u_name}}</v-list-tile-title>
-          <v-list-tile-title style="font-family: 'Nanum Pen Script' !important; font-size:20px !important; color:grey;">{{user.u_mail}}</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+      <div v-if="isLogin" class="navigation-user">
+        <v-list-tile >
+          <v-list-tile-avatar>
+            <v-img src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></v-img>
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title class="title" style="font-family: 'Nanum Pen Script' !important; font-size:25px !important;color:black">{{user.u_name}}</v-list-tile-title>
+            <v-list-tile-title style="font-family: 'Nanum Pen Script' !important; font-size:20px !important; color:grey;">{{user.u_mail}}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-content>
+            <span class="navigation-user-info">게시글 : {{0}}</span>
+          </v-list-tile-content>
+          <v-list-tile-content>
+            <span class="navigation-user-info">댓글 : {{0}}</span>
+          </v-list-tile-content>
+        </v-list-tile>
+      </div>
       <v-list-tile v-else>
         <v-list-tile-content>
           <span style="font-family: 'Nanum Pen Script' !important; font-size:30px !important; color:white; text-align:center; min-width:100%;">
@@ -44,6 +53,7 @@
           </span>
         </v-list-tile-content>
       </v-list-tile>
+
 
       <v-list-tile @click="" to="/" style="margin-top:10px; background:rgba(0,0,0,0);">
         <v-list-tile-content style="height:auto;background:rgba(0,0,0,0);">
@@ -174,5 +184,18 @@ export default {
 
 .spantag {
   color: white;
+}
+
+.navigation-user {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background: white;
+}
+
+.navigation-user-info{
+  font-family: 'Nanum Pen Script' !important;
+   font-size:20px !important;
+   color:black;
 }
 </style>
