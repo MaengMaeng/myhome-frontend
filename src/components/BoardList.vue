@@ -12,15 +12,15 @@
         <td class="text-xs-center">{{ props.item.b_writer }}</td>
         <td class="text-xs-center">{{ props.item.b_views }}</td>
         <td class="text-xs-center">{{ props.item.b_wdate|time}}</td>
-        <td class="text-xs-center">{{ props.item.b_like }}</td>
+        <!-- <td class="text-xs-center">{{ props.item.b_like }}</td> -->
       </tr>
       <tr  v-if="props.item.b_category == 1">
         <td class="text-xs-right">{{ props.item.b_number }}</td>
-        <td class="text-xs-left" ><span @click="goDetail(props.item.b_number)" class="table-title">{{ props.item.b_title }}</span><span class="table-comments">{{props.item.b_comments|comments}}</span></td>
+        <td class="text-xs-left"><span @click="goDetail(props.item.b_number)" class="table-title">{{ props.item.b_title }}</span><span class="table-comments">{{props.item.b_comments|comments}}</span></td>
         <td class="text-xs-center">{{ props.item.b_writer }}</td>
-        <td class="text-xs-center">{{ props.item.b_views }}</td>
-        <td class="text-xs-center">{{ props.item.b_wdate|time}}</td>
-        <td class="text-xs-center">{{ props.item.b_like }}</td>
+        <td class="text-xs-center ">{{ props.item.b_views }}</td>
+        <td class="text-xs-center ">{{ props.item.b_wdate|time}}</td>
+        <!-- <td class="text-xs-center">{{ props.item.b_like }}</td> -->
       </tr>
     </template>
   </v-data-table>
@@ -33,12 +33,12 @@
     data () {
       return {
         headers:[
-          {text:'', align:'right',sortable:false,value:0},
-          {text:'글 제목', align:'center',sortable:false,value:0},
-          {text:'작성자', align:'center',sortable:false,value:0},
-          {text:'조회수', align:'center',sortable:false,value:0},
-          {text:'작성일', align:'center',sortable:false,value:0},
-          {text:'좋아요', align:'center',sortable:false,value:0},
+          {text:'*', align:'center',sortable:false, width:'100px'},
+          {text:'글 제목', align:'center',sortable:false, width:'100px'},
+          {text:'작성자', align:'center',sortable:false, width:'100px'},
+          {text:'조회수', align:'center',sortable:false, width:'100px'},
+          {text:'작성일', align:'center',sortable:false, width:'100px'},
+          // {text:'좋아요', align:'center',sortable:false, width:'100px'},
         ]
       }
     },
@@ -88,6 +88,7 @@
     border:rgb(82, 245, 166) 1px solid;
     background:rgb(82, 245, 166);
     padding:5px;
+    width:50px;
   }
 
   .table-title:hover{
