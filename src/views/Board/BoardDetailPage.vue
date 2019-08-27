@@ -11,9 +11,17 @@
       </div>
       <div style="width:100%; border-bottom: 1px dashed grey;"></div>
       <v-divider dark></v-divider>
+      <div class="myboard-only">
+        <img src= "@/assets/common-img/modify.jpg" class="myboard-only-image"/>
+        <img src= "@/assets/common-img/delete.jpg" class="myboard-only-image"/>
+      </div>
       <div class="content-field">
         <Editor :content="board.board.b_content"/>
+        <div>
+         <v-img style="width:500px" v-if="attachment != null" :src="attachment.a_file"></v-img>
+        </div>
       </div>
+      
       <div style="text-align:center;">
         <div style="text-align:right;">
           <h3>Views : {{board.board.b_views}} &nbsp;&nbsp;&nbsp; Likes : {{board.board.b_like}}</h3>
@@ -191,6 +199,15 @@ export default {
 
 div.v-input__slot{
   background: rgba(0,0,0,0) !important;
+}
+
+.myboard-only{
+  text-align: right;
+}
+.myboard-only-image{
+  width:20px;
+  height:20px;
+  display:inline-block;
 }
 
 </style>

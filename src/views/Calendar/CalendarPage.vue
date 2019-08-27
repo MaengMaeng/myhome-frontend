@@ -27,6 +27,12 @@ export default {
       events: []
     }
   },
+  created(){
+    if(!this.$session.has("user")){
+      alert("로그인 해주세요.");
+      this.$router.go(-1);
+    }
+  },
   mounted(){
     this.$http.get(this.$store.state.server_ip + '/getAllPlans')
       .then((response) => {
