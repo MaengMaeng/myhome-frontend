@@ -1,10 +1,10 @@
 <template>
   <v-carousel
-    height="800px"
+    id="image-slide"
     delimiter-icon="stop"
     prev-icon="mdi-arrow-left"
     next-icon="mdi-arrow-right"
-    flat
+    height="800px"
   >
     <v-carousel-item
       v-for="(item,i) in items"
@@ -36,3 +36,10 @@
     }
   }
 </script>
+
+<style media="screen">
+  #image-slide{
+    box-shadow:none;
+    margin: 0 auto;
+  }
+</style>
