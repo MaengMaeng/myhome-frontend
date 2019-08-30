@@ -1,6 +1,7 @@
 <template>
 <v-layout wrap align-center justify-center row fill-height>
   <!-- <v-flex xs12 text-xs-left> -->
+    <SelectModal v-if="showModal===true" v-on:close="showModal=false;" v-on:submit="deleteBoard()"/>
     <v-flex v-if="board" pa-5 ma-5 white xs12>
       <h1><span class="number" v-if="board.board.b_category == 0">공지</span>&nbsp;{{board.board.b_title}}</h1>
       <div style="text-align:right;color:grey;">
@@ -12,8 +13,8 @@
       <div style="width:100%; border-bottom: 1px dashed grey;"></div>
       <v-divider dark></v-divider>
       <div class="myboard-only">
-        <img src= "@/assets/common-img/modify.jpg" class="myboard-only-image"/>
-        <img src= "@/assets/common-img/delete.jpg" class="myboard-only-image"/>
+        <v-img @click="modifyBoard" :src='require("@/assets/common-img/modify.jpg")' style="width:20px; height:20px; display:inline-block; margin:8px;"/>
+        <v-img @click="doShowModal" :src='require("@/assets/common-img/delete.jpg")' style="width:20px; height:20px; display:inline-block; margin:8px;"/>
       </div>
       <div class="content-field">
         <Editor :content="board.board.b_content"/>
@@ -53,14 +54,14 @@
   <Loading :isLoading="isLoading" />
 </v-layout>
 </template>
-
 <script>
 import Loading from '@/components/common/Loading';
 import CommentCard from '@/components/CommentCard';
-import Time from '@/services/Time'
-import Editor from '@/components/common/EditorForRead'
+import Time from '@/services/Time';
+import Editor from '@/components/common/EditorForRead';
+import SelectModal from '@/components/SelectModal';
 
-export default {
+export default {  
   name: 'BoardDetailPage',
   data() {
     return {
@@ -68,13 +69,15 @@ export default {
       attachment:null,
       comment: null,
       isLoading: false,
+      showModal:false
     }
   },
   components: {
     Loading,
     CommentCard,
     Time,
-    Editor
+    Editor,
+    SelectModal
   },
   created() {
     this.isLoading = true;
@@ -88,6 +91,15 @@ export default {
         c_content: this.comment,
         c_writer: this.$session.get("user").u_mail,
         c_wdate: Time.getFullDate(),
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'dataType': "jsonp"
+        }
+      }
+    },
+    deleteForm(){
+      return {
+        b_number:this.$route.params.id * 1,
         headers: {
           'Access-Control-Allow-Origin': '*',
           'dataType': "jsonp"
@@ -110,7 +122,6 @@ export default {
           'dataType': "jsonp"
         }
       };
-
       this.axios.get(this.$store.state.server_ip + "/getBoardDetailByBoardNum?b_number=" + this.$route.params.id, config)
         // this.axios.post("http://ec2-52-79-126-1.ap-northeast-2.compute.amazonaws.com:8080/insertBoard", config)
         .then((response) => {
@@ -146,6 +157,8 @@ export default {
     writeComment(){
       if(this.$session.has("user")){
         var form = this.form;
+        console.log(form);
+      
         if(form.c_content != "" && form.c_content != null){
           this.axios.post(this.$store.state.server_ip + "/insertComment", form)
           .then((response) => {
@@ -164,9 +177,30 @@ export default {
       else{
         alert("로그인 해주세요.")
       }
+    },
+
+    modifyBoard(){
+      console.log('hello');
+    },
+
+    doShowModal(){
+      this.showModal = true;
+    },
+    deleteBoard(){
+      var form = this.deleteForm;
+      console.log(form);
+      this.axios.post(this.$store.state.server_ip + "/deleteBoardByNum", form)
+        .then((response) => {
+          console.log(this.code);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+      // location.href = '/boardlist';
     }
   }
 }
+
 </script>
 
 <style media="screen">
