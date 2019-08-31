@@ -22,8 +22,11 @@
       <v-btn flat to="/calendar"><span class="header-btn">일정</span></v-btn>
       <v-btn flat to="/boardlist"><span class="header-btn">게시판</span></v-btn>
       <v-btn flat @click.stop="drawer = !drawer"><span class="header-btn">Menu</span></v-btn>
-
     </v-toolbar-items>
+    <v-toolbar-items id="header-toolbar-items2">
+      <v-btn flat @click.stop="drawer = !drawer"><span class="header-btn"><v-icon>menu</v-icon></span></v-btn>
+    </v-toolbar-items>
+
   </v-toolbar>
   <v-navigation-drawer v-model="drawer" right fixed temporary hide-overlay style="background-color: rgba(61, 179, 158, 0.8);">
     <v-list style="background-color: rgba(0, 0, 0, 0);">
@@ -198,4 +201,16 @@ export default {
    font-size:20px !important;
    color:black;
 }
+#header-toolbar-items2{
+  display:none;
+}
+@media screen and (max-width: 768px) {
+  #header-toolbar-items {
+     display:none;
+  }
+  #header-toolbar-items2{
+    display:block;
+  }
+ }
+
 </style>

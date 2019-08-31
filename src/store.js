@@ -17,5 +17,7 @@ export const store = new Vuex.Store({
             u_tel: '',
             u_birth: ''
         }
+
     }
+  }
 });
