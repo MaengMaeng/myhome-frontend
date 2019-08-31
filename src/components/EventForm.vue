@@ -67,12 +67,14 @@
 
         this.$http.post(this.$store.state.server_ip + '/insertPlan', config)
           .then((response) => {
-            this.$store.state.plan = response.data;
+            this.resetValues();
+            // this.$store.state.plan = response.data;
+
+            this.$emit("insertPlan");
           })
           .catch((error) => {
             console.log(error)
           })
-        this.resetValues();
       },
       selectColor(color) {
         this.event = {

@@ -2,10 +2,10 @@
   <v-container fluid>
     <v-layout wrap row>
       <v-flex xs12 md9>
-        <calendar :events="events"/>
+        <calendar :events="events" @updatePlan="getAllPlans" @deletePlan="getAllPlans"/>
       </v-flex>
       <v-flex xs12 md3>
-        <event-form/>
+        <event-form @insertPlan="getAllPlans"/>
       </v-flex>
     </v-layout>
   </v-container>
@@ -24,7 +24,8 @@ export default {
   },
   data(){
     return {
-      events: []
+      events: [],
+
     }
   },
   created(){
@@ -34,26 +35,31 @@ export default {
     }
   },
   mounted(){
-    this.$http.get(this.$store.state.server_ip + '/getAllPlans')
-      .then((response) => {
-        var items = response.data;
-        console.log(items)
-        for(var i = 0; i < items.length; i++){
-          this.events.push({title: items[i].p_title, start: items[i].p_sdate,
-                  end: items[i].p_edate, cssClass: "#000", description: items[i].p_content});
-        }
-      })
-      .catch((error) =>{
-        console.log(error)
-      })
+    this.getAllPlans();
   },
   computed:{
     // mapState(['plan'])
-  }
-  ,
+  },
   watch: {
     plan(to, from){
       // this.events.push(this.$store.state.plan);
+    }
+  },
+  methods:{
+    getAllPlans(){
+      this.$http.get(this.$store.state.server_ip + '/getAllPlans')
+        .then((response) => {
+          var items = response.data;
+          this.events = [];
+          console.log(items);
+          for(var i = 0; i < items.length; i++){
+            this.events.push({number: items[i].p_number, title: items[i].p_title, start: items[i].p_sdate,
+                    end: items[i].p_edate, cssClass:'family', description: items[i].p_content});
+          }
+        })
+        .catch((error) =>{
+          console.log(error)
+        })
     }
   }
 }

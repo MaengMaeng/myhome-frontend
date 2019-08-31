@@ -1,7 +1,7 @@
 <template>
   <div>
-    <full-calendar @eventClick="handleDateClick" :events="events" />
-    <v-dialog hide-overlay v-model="dialog" persistent max-width="500px">
+    <full-calendar id="my-calendar" @eventClick="handleDateClick" :monthNames="monthNames" :weekNames="weekNames" :titleFormat="titleFormat" :events="events" />
+    <v-dialog id="calendar-dialog" hide-overlay v-model="dialog" persistent max-width="500px">
       <v-card>
         <v-card-title style="display:flex; justify-content:center;">
           <h2> 일정을 확인하세요! </h2>
@@ -77,23 +77,20 @@ export default {
   data() {
     return {
       dialog: false,
+      num:'',
       title: '',
       start: '',
       end: '',
       description: '',
-      cssClass: ''
+      cssClass: '',
+      weekNames:['일요일','월요일','화요일','수요일','목요일','금요일','토요일'],
+      monthNames:['1','2','3','4','5','6월','7','8','9','10','11','12'],
+      titleFormat :'yyyy년 MM월'
     }
   },
   methods: {
     handleDateClick(event, jsEvent, pos) {
-      var data = {
-        id: this.$session.get('user').u_email,
-        title: event.title,
-        start: event.start,
-        end: event.end,
-        cssClass: event.cssClass,
-        description: event.description
-      }
+      this.number = event.number;
       this.title = event.title;
       this.start = event.start;
       this.end = event.end;
@@ -101,13 +98,7 @@ export default {
       this.description = event.description;
       this.dialog = true
 
-      this.$http.post(this.$store.state.server_ip + '/getCalId', data)
-        .then((response) => {
-          this.$store.state.cal_id = response.body[0].cal_id;
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      console.log(event);
     },
     modify() {
       var start = format(this.start, 'YYYY-MM-DD');
@@ -118,31 +109,41 @@ export default {
       }
 
       var data = {
-        id: this.$store.state.cal_id,
-        title: this.title,
-        start: start,
-        end: end,
-        description: this.description,
-        cssClass: this.cssClass
+        p_number: this.number * 1,
+        p_title: this.title,
+        p_sdate: start,
+        p_edate: end,
+        p_content: this.description,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'content-type': 'application/json'
+        }
       }
 
-      this.$http.post(this.$store.state.server_ip + '/modifyPersonal', data)
+      console.log(data);
+
+      this.$http.put(this.$store.state.server_ip + '/updatePlan', data)
         .then((response) => {
-          this.$store.state.plan = true;
-          this.dialog = false
+          this.dialog = false;
+          this.$emit("updatePlan");
         })
         .catch((error) => {
           console.log(error)
         })
     },
     del(){
-      var data = {
-        id : this.$store.state.cal_id
+      var config = {
+        p_number:this.number,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'content-type': 'application/json'
+        }
       }
-      this.$http.post(this.$store.state.server_ip + '/delete', data)
+
+      this.$http.post(this.$store.state.server_ip + '/deletePlan', config)
         .then((response) => {
-          this.$store.state.plan = true;
           this.dialog = false;
+          this.$emit("deletePlan");
         })
         .catch((error) => {
           console.log(error)
@@ -155,80 +156,91 @@ export default {
 }
 </script>
 
-<style scoped>
-.input-holder {
-  margin: 10px 0;
-  display: flex;
-  /* justify-content: flex-start; */
-  /* width: 77%; */
-}
+<style>
 
-.input-holder input,
-.input-holder textarea {
-  padding: 12px 15px;
-  border-radius: 0;
-  width: 100%;
-  opacity: 0.8;
-  font-size: 15px;
-  font-weight: normal;
-  color: black !important;
-  float: left;
-}
+  .input-holder {
+    margin: 10px 0;
+    display: flex;
+    /* justify-content: flex-start; */
+    /* width: 77%; */
+  }
 
-.input-holder input:focus,
-.input-holder textarea:focus,
-.input-holder button:focus {
-  border: 1.5px solid rgb(0, 0, 0);
-  outline: none;
-  box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.2);
-}
-
-
-.red {
-  background: rgb(235, 77, 77) !important;
-  color: whitesmoke !important;
-}
-
-.blue {
-  background: rgb(59, 59, 163) !important;
-  color: whitesmoke !important;
-}
-
-.orange {
-  background: orange !important;
-  color: white !important;
-}
-
-.green {
-  background: rgb(49, 155, 49) !important;
-  color: white !important;
-}
-
-.blue,
-.orange,
-.red,
-.green {
-  font-size: 13px;
-  font-weight: 500;
-  text-transform: capitalize;
-}
-
-.event-item {
-  padding: 2px 0 2px 4px !important;
-}
-
-.theme {
-  width: 2000px;
-}
-.picker-main {
+  .input-holder input,
+  .input-holder textarea {
+    padding: 12px 15px;
+    border-radius: 0;
     width: 100%;
+    opacity: 0.8;
+    font-size: 15px;
+    font-weight: normal;
+    color: black !important;
+    float: left;
+  }
+
+  .input-holder input:focus,
+  .input-holder textarea:focus,
+  .input-holder button:focus {
+    border: 1.5px solid rgb(0, 0, 0);
+    outline: none;
+    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  .red {
+    background: rgb(235, 77, 77) !important;
+    color: whitesmoke !important;
+  }
+
+  .blue {
+    background: rgb(59, 59, 163) !important;
+    color: whitesmoke !important;
+  }
+
+  .orange {
+    background: orange !important;
+    color: white !important;
+  }
+
+  .green {
+    background: rgb(49, 155, 49) !important;
+    color: white !important;
+  }
+
+  .blue,
+  .orange,
+  .red,
+  .green {
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+
+  .event-item {
+    padding: 2px 0 2px 4px !important;
+  }
+
+  /* .theme {
+    width: 2000px;
+  } */
+
+  .picker-main {
+      width: 100% !important;
+  }
+
+  .form-area{
+    display:flex; justify-content:center; text-align:center; width:80%;
+  }
+  .text-area{
+    float:left; padding: 20px;
+    min-width: 130px;
+  }
+
+
+.input-holder div{
+  opacity:1 !important;
 }
 
-.form-area{
-  display:flex; justify-content:center; text-align:center; width:80%;
-}
-.text-area{
-  float:left; padding: 20px;
-  min-width: 130px;
+#my-calendar .events-week{
+  height:100px !important;
+  min-height:100px !important;
 }
 </style>

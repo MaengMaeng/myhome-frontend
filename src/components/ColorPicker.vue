@@ -13,11 +13,12 @@ export default {
     props: ['color'],
     data(){
         return {
-          colors: ['red', 'green', 'blue', 'orange']
+          colors: ['default','red', 'green', 'blue', 'orange']
         }
     },
     methods: {
         selectColor(color){
+            console.log(color);
             this.$emit('colorPicked', color);
         }
     }
@@ -26,7 +27,7 @@ export default {
 
 <style scoped>
     .picker-main {
-        width: 65%;
+        width: 100%;
     }
     .header {
         font-size: 14px;
@@ -51,8 +52,12 @@ export default {
         box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.2);
         border: 3px solid rgba(0, 0, 0, 0.4);
     }
+    .color.default{
+        background: #C7E6FD;
+    }
     .color.red {
         background: rgb(235, 77, 77);
+        font-weight:bold;
     }
     .color.blue {
         background: rgb(59, 59, 163);
