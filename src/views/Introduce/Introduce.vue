@@ -98,7 +98,7 @@ export default {
 }
 
 .atom_container {
-  border: 1px solid #999;
+  border: 1px solid rgb(99,99,99);
   margin: 10px;
   padding: 10px;
   border-radius: 15px;

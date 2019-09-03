@@ -3,7 +3,7 @@
   <v-toolbar flat height="40px" class="header-toolbar">
     <v-layout>
       <v-flex text-xs-right>
-        <span v-if="isLogin" style="width:100%; text-align:right;font-family: 'Nanum Pen Script'; font-size:20px;">{{user.u_name}}님 환영합니다.</span>
+        <span v-if="isLogin" style="width:100%; text-align:right;font-family: 'Nanum Pen Script'; font-size:20px;">{{$session.get("user").u_name}}님 환영합니다.</span>
         <LoginModal v-on:loginstate="loginstate" />
       </v-flex>
     </v-layout>
@@ -33,19 +33,22 @@
       <div v-if="isLogin" class="navigation-user">
         <v-list-tile >
           <v-list-tile-avatar>
-            <v-img src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></v-img>
+            <v-img v-if="!$session.get('user').u_profile" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"></v-img>
+            <v-img v-else :src="$session.get('user').u_profile"></v-img>
+
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title class="title" style="font-family: 'Nanum Pen Script' !important; font-size:25px !important;color:black">{{user.u_name}}</v-list-tile-title>
-            <v-list-tile-title style="font-family: 'Nanum Pen Script' !important; font-size:20px !important; color:grey;">{{user.u_mail}}</v-list-tile-title>
+            <v-list-tile-title class="title" style="font-family: 'Nanum Pen Script' !important; font-size:25px !important;color:black">{{$session.get("user").u_name}}</v-list-tile-title>
+            <v-list-tile-title style="font-family: 'Nanum Pen Script' !important; font-size:20px !important; color:grey;">{{$session.get("user").u_mail}}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile>
           <v-list-tile-content>
-            <span class="navigation-user-info">게시글 : {{0}}</span>
+            <!-- <span class="navigation-user-info">게시글 : {{$store.state.user.u_boards}}</span> -->
+            <span class="navigation-user-info">게시글 : {{$session.get("user").u_boards}}</span>
           </v-list-tile-content>
           <v-list-tile-content>
-            <span class="navigation-user-info">댓글 : {{0}}</span>
+            <span class="navigation-user-info">댓글 : {{$session.get("user").u_comments}}</span>
           </v-list-tile-content>
         </v-list-tile>
       </div>
@@ -128,12 +131,11 @@ export default {
     return {
       drawer: "",
       isLogin: false,
-      user: null,
     }
   },
   created() {
     if (this.$session.has("user")) {
-      this.user = this.$session.get('user');
+      // this.$store.state.user = this.$session.get('user');
       this.isLogin = true;
     } else {
       this.isLogin = false;
@@ -143,10 +145,10 @@ export default {
     loginstate() {
       if (this.$session.has('user')) {
         this.isLogin = true;
-        this.user = this.$session.get('user');
+        // this.$store.state.user = this.$session.get('user');
       } else {
         this.isLogin = false;
-        this.user = null;
+        // this.$store.state.user = null;
       }
     }
   },

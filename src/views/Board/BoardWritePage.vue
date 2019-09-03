@@ -107,7 +107,10 @@ export default {
 
           alert("작성되었습니다.")
 
-          console.log(response.data)
+          var user = this.$session.get("user");
+          user.u_boards++;
+          this.$session.set("user", user);
+          
           this.goBoardList();
         })
         .catch((error) => {
