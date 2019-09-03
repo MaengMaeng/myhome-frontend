@@ -22,7 +22,7 @@
          <v-img style="width:500px" v-if="attachment != null" :src="attachment.a_file"></v-img>
         </div>
       </div>
-      
+
       <div style="text-align:center;">
         <div style="text-align:right;">
           <h3>Views : {{board.board.b_views}} &nbsp;&nbsp;&nbsp; Likes : {{board.board.b_like}}</h3>
@@ -61,7 +61,7 @@ import Time from '@/services/Time';
 import Editor from '@/components/common/EditorForRead';
 import SelectModal from '@/components/SelectModal';
 
-export default {  
+export default {
   name: 'BoardDetailPage',
   data() {
     return {
@@ -158,11 +158,15 @@ export default {
       if(this.$session.has("user")){
         var form = this.form;
         console.log(form);
-      
+
         if(form.c_content != "" && form.c_content != null){
           this.axios.post(this.$store.state.server_ip + "/insertComment", form)
           .then((response) => {
             if(response.data != ""){
+              var user = this.$session.get("user");
+              user.u_comments++;
+              this.$session.set("user", user);
+
               this.getBoard();
             }
           })

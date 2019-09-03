@@ -46,6 +46,10 @@
 
     methods: {
       async insertPlan() {
+        if(!this.event.title || !this.event.start || !this.event.end || !this.event.data.description){
+          alert("계획을 다시 확인해주세요.");
+          return;
+        }
         const start = format(this.event.start, 'YYYY-MM-DD');
         const end = format(this.event.end, 'YYYY-MM-DD');
         const event = {
@@ -130,7 +134,7 @@
   .input-holder input:focus,
   .input-holder textarea:focus,
   .input-holder button:focus {
-    border: 2px solid rgb(155, 20, 255);
+    border: 2px solid rgba(255,20,65,1);
     outline: none;
     box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.2);
   }
