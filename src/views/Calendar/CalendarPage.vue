@@ -37,14 +37,6 @@ export default {
   mounted(){
     this.getAllPlans();
   },
-  computed:{
-    // mapState(['plan'])
-  },
-  watch: {
-    plan(to, from){
-      // this.events.push(this.$store.state.plan);
-    }
-  },
   methods:{
     getAllPlans(){
       this.$http.get(this.$store.state.server_ip + '/getAllPlans')
@@ -54,7 +46,7 @@ export default {
           console.log(items);
           for(var i = 0; i < items.length; i++){
             this.events.push({number: items[i].p_number, title: items[i].p_title, start: items[i].p_sdate,
-                    end: items[i].p_edate, cssClass:'family', description: items[i].p_content});
+                    end: items[i].p_edate, cssClass:'event-color-' + items[i].p_color, description: items[i].p_content});
           }
         })
         .catch((error) =>{

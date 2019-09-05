@@ -13,13 +13,13 @@ export default {
     props: ['color'],
     data(){
         return {
-          colors: ['default','red', 'green', 'blue', 'orange']
+          // colors: ['default','red', 'green', 'blue', 'orange']
+          colors: ['event-color-0','event-color-1', 'event-color-2', 'event-color-3', 'event-color-4','event-color-5']
         }
     },
     methods: {
         selectColor(color){
-            console.log(color);
-            this.$emit('colorPicked', color);
+          this.$emit('colorPicked', color);
         }
     }
 }
@@ -51,21 +51,5 @@ export default {
     .color.selected{
         box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.2);
         border: 3px solid rgba(0, 0, 0, 0.4);
-    }
-    .color.default{
-        background: #C7E6FD;
-    }
-    .color.red {
-        background: rgb(235, 77, 77);
-        font-weight:bold;
-    }
-    .color.blue {
-        background: rgb(59, 59, 163);
-    }
-    .color.orange {
-        background: orange;
-    }
-    .color.green {
-        background: rgb(49, 155, 49);
     }
 </style>

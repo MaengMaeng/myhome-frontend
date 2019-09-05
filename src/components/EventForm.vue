@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="theme">
-          <color-picker @colorPicked="selectColor" color="red" />
+          <color-picker @colorPicked="selectColor" :color="event.cssClass" />
         </div>
         <v-btn @click="insertPlan" blue>스케쥴 추가하기</v-btn>
       </v-flex>
@@ -36,7 +36,7 @@
           title: '',
           start: '',
           end: '',
-          cssClass: '',
+          cssClass: 'event-color-0',
           data: {
             description: ''
           }
@@ -63,6 +63,7 @@
           p_edate: event.end,
           p_sdate: event.start,
           p_title: event.title,
+          p_color:this.event.cssClass.split("-")[2],
           headers: {
             'Access-Control-Allow-Origin': '*',
             'content-type': 'application/json'
@@ -72,19 +73,14 @@
         this.$http.post(this.$store.state.server_ip + '/insertPlan', config)
           .then((response) => {
             this.resetValues();
-            // this.$store.state.plan = response.data;
-
             this.$emit("insertPlan");
           })
           .catch((error) => {
             console.log(error)
           })
       },
-      selectColor(color) {
-        this.event = {
-          ...this.event,
-          cssClass: color
-        }
+      selectColor(color){
+          this.event.cssClass = color
       },
       resetValues() {
         this.event = {
@@ -107,7 +103,6 @@
 <style>
   .input-holder {
     display: flex;
-    /* justify-content: flex-start; */
   }
 
   .input-holder div {

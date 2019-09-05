@@ -97,8 +97,6 @@ export default {
       this.cssClass = event.cssClass;
       this.description = event.description;
       this.dialog = true
-
-      console.log(event);
     },
     modify() {
       var start = format(this.start, 'YYYY-MM-DD');
@@ -114,6 +112,7 @@ export default {
         p_sdate: start,
         p_edate: end,
         p_content: this.description,
+        p_color:this.cssClass.split("-")[2],
         headers: {
           'Access-Control-Allow-Origin': '*',
           'content-type': 'application/json'
@@ -157,12 +156,9 @@ export default {
 </script>
 
 <style>
-
   .input-holder {
     margin: 10px 0;
     display: flex;
-    /* justify-content: flex-start; */
-    /* width: 77%; */
   }
 
   .input-holder input,
@@ -185,30 +181,36 @@ export default {
     box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.2);
   }
 
-  .red {
-    background: rgb(235, 77, 77) !important;
-    color: whitesmoke !important;
+  .event-color-0{
+    background: rgba(255,237,78,1) !important;
+    color: black !important;
   }
-
-  .blue {
-    background: rgb(59, 59, 163) !important;
-    color: whitesmoke !important;
+  .event-color-1{
+    background: rgba(88,191,162,1) !important;
+    color: black !important;
   }
-
-  .orange {
-    background: orange !important;
+  .event-color-2{
+    background: rgba(81,42,222,1) !important;
+    color: white !important;
+  }
+  .event-color-3{
+    background: rgba(255,42,42,1) !important;
+    color: white !important;
+  }
+  .event-color-4{
+    background: rgba(25,227,118,1) !important;
+    color: black !important;
+  }
+  .event-color-5{
+    background: rgba(182,64,230,1) !important;
     color: white !important;
   }
 
-  .green {
-    background: rgb(49, 155, 49) !important;
-    color: white !important;
-  }
-
-  .blue,
-  .orange,
-  .red,
-  .green {
+  .event-color-1,
+  .event-color-2,
+  .event-color-3,
+  .event-color-4,
+  .event-color-5 {
     font-size: 13px;
     font-weight: 500;
     text-transform: capitalize;
@@ -217,10 +219,6 @@ export default {
   .event-item {
     padding: 2px 0 2px 4px !important;
   }
-
-  /* .theme {
-    width: 2000px;
-  } */
 
   .picker-main {
       width: 100% !important;
